@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Product-Sale</string>
+    <string name="app_name">Pet Shop</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -9,4 +9,6 @@
     <string name="click_to_login">Click to login</string>
     <string name="click_to_register">Click to register</string>
     <string name="logout">Logout</string>
+    <string name="add_pet">Add Pet</string>
+    <string name="pet_image">Pet Image</string>
 </resources>

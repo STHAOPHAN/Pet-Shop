@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "899968966466",
+    "firebase_url": "https://product-sale-prm392-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "product-sale-prm392",
+    "storage_bucket": "product-sale-prm392.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899968966466:android:fdf8d4a029c3de3b2c32db",
+        "android_client_info": {
+          "package_name": "com.example.product_sale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUElkrbKtuCDK2zKcfzmbicggeIdZTUuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
