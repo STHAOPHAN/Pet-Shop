@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- item_pet.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/pet_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_pet_placeholder"
-        android:contentDescription="@string/pet_image" />
+        android:contentDescription="Pet Image" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -36,5 +33,4 @@
             android:text="Breed"
             android:textSize="14sp" />
     </LinearLayout>
-
 </LinearLayout>
