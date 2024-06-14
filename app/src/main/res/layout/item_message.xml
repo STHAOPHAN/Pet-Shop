@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Tin nhắn của người dùng -->
+    <LinearLayout
+        android:id="@+id/user_message_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/text_user_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_message_background"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:text="User message"
+            android:maxWidth="300dp" />
+    </LinearLayout>
+
+    <!-- Tin nhắn của chủ shop -->
+    <LinearLayout
+        android:id="@+id/shop_message_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/text_shop_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shop_message_background"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:text="Shop message"
+            android:maxWidth="300dp" />
+    </LinearLayout>
+
+</LinearLayout>
