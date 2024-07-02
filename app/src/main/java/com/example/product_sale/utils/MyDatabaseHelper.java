@@ -1,4 +1,4 @@
-package com.example.product_sale;
+package com.example.product_sale.utils;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;

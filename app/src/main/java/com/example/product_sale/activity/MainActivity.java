@@ -1,10 +1,9 @@
-package com.example.product_sale;
+package com.example.product_sale.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,8 +11,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.product_sale.databinding.ActivityMainBinding;
+import com.example.product_sale.utils.MyDatabaseHelper;
+import com.example.product_sale.R;
+import com.example.product_sale.adapter.PetAdapter;
 import com.example.product_sale.models.Pet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.example.product_sale;
+package com.example.product_sale.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.product_sale.R;
 import com.example.product_sale.adapter.ChatAdapter;
 import com.example.product_sale.models.Message;
 import java.util.ArrayList;

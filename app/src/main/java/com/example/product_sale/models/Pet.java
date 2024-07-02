@@ -1,8 +1,12 @@
 package com.example.product_sale.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Pet {
+public class Pet implements Parcelable {
     private int pet_id;
     private String name;
     private int type_id;
@@ -95,5 +99,47 @@ public class Pet {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    protected Pet(Parcel in) {
+        pet_id = in.readInt();
+        name = in.readString();
+        type_id = in.readInt();
+        breed = in.readString();
+        age = in.readInt();
+        weight = in.readFloat();
+        price = new BigDecimal(in.readString());
+        description = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<Pet> CREATOR = new Creator<Pet>() {
+        @Override
+        public Pet createFromParcel(Parcel in) {
+            return new Pet(in);
+        }
+
+        @Override
+        public Pet[] newArray(int size) {
+            return new Pet[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(pet_id);
+        dest.writeString(name);
+        dest.writeInt(type_id);
+        dest.writeString(breed);
+        dest.writeInt(age);
+        dest.writeFloat(weight);
+        dest.writeString(price.toString());
+        dest.writeString(description);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

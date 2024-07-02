@@ -1,6 +1,7 @@
-package com.example.product_sale;
+package com.example.product_sale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.product_sale.R;
+import com.example.product_sale.activity.PetDetailActivity;
 import com.example.product_sale.models.Pet;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +38,16 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         Pet pet = petList.get(position);
         holder.bind(pet);
+        holder.petName.setText(pet.getName());
+        holder.petBreed.setText(pet.getBreed());
+        // Nếu bạn có hình ảnh thật sự, bạn có thể sử dụng thư viện như Glide hoặc Picasso để tải ảnh
+        holder.petImage.setImageResource(R.drawable.ic_pet_placeholder);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PetDetailActivity.class);
+            intent.putExtra("pet", pet); // Truyền đối tượng Pet vào Intent
+            context.startActivity(intent);
+        });
     }
 
     @Override
