@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.pet_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        databaseHelper = new MyDatabaseHelper(this);
-        databaseHelper.addSamplePets();
-        petList = databaseHelper.getAllPets();
 
         petAdapter = new PetAdapter(this, petList);
         recyclerView.setAdapter(petAdapter);

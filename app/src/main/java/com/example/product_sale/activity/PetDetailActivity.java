@@ -39,9 +39,7 @@ public class PetDetailActivity extends AppCompatActivity {
             petNameTextView.setText(pet.getName());
             petBreedTextView.setText(pet.getBreed());
             petAgeTextView.setText(String.valueOf(pet.getAge()));
-            petWeightTextView.setText(String.valueOf(pet.getWeight()));
             petPriceTextView.setText(String.valueOf(pet.getPrice()));
-            petDescriptionTextView.setText(pet.getDescription());
 
             // Bạn có thể thêm hình ảnh cụ thể bằng cách sử dụng pet.getImage() nếu có URL hoặc resource id
             petImageView.setImageResource(R.drawable.ic_pet_placeholder);
