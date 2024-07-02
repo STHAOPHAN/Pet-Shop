@@ -1,4 +1,4 @@
-package com.example.product_sale;
+package com.example.product_sale.activity;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.product_sale.utils.MyDatabaseHelper;
+import com.example.product_sale.R;
+import com.example.product_sale.adapter.PetAdapter;
 import com.example.product_sale.models.Pet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
