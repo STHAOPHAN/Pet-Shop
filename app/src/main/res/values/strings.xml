@@ -322,4 +322,12 @@
         <item>Other</item>
 
     </array>
+	
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_map">Map</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_account">Account</string>
+
 </resources>
