@@ -30,15 +30,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        recyclerView = binding.petList;
+/*        recyclerView = binding.petList;
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-/*        databaseHelper = new MyDatabaseHelper(requireContext());
+        databaseHelper = new MyDatabaseHelper(requireContext());
         databaseHelper.addSamplePets();
-        petList = databaseHelper.getAllPets();*/
+        petList = databaseHelper.getAllPets();
 
         petAdapter = new PetAdapter(petList);
-        recyclerView.setAdapter(petAdapter);
+        recyclerView.setAdapter(petAdapter);*/
         return root;
     }
 

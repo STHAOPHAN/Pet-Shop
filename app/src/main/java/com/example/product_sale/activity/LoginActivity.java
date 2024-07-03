@@ -46,19 +46,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
             mAuth = FirebaseAuth.getInstance();
-            editTextEmail = findViewById(R.id.emailEditText);
-            editTextPassword = findViewById(R.id.passwordEditText);
-            btnSignIn = findViewById(R.id.signInButton);
+            editTextEmail = findViewById(R.id.edtEmail);
+            editTextPassword = findViewById(R.id.edtPassword);
+            btnSignIn = findViewById(R.id.btnSignIn);
             progressBar = findViewById(R.id.progressBar);
-            registerNow = findViewById(R.id.registerNow);
+            registerNow = findViewById(R.id.btnSignUp);
             registerNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -66,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-            });*/
+            });
             btnSignIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
