@@ -99,13 +99,20 @@
                 tools:ignore="RelativeOverlap" />
         </RelativeLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_standard"
+            android:layout_marginEnd="@dimen/spacing_standard"
+            android:visibility="gone" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignIn"
             style="@style/MaterialButtonStyle.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_standard"
-            android:layout_marginTop="@dimen/spacing_mxlarge"
             android:layout_marginEnd="@dimen/spacing_standard"
             android:shadowColor="@color/colorPrimary"
             android:text="@string/lbl_sign_in"
