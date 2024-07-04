@@ -1,49 +1,41 @@
 package com.example.product_sale.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.product_sale.R;
 import com.example.product_sale.models.Pet;
+import com.squareup.picasso.Picasso;
 
 public class PetDetailActivity extends AppCompatActivity {
-
-    ImageView petImageView;
-    TextView petNameTextView;
-    TextView petBreedTextView;
-    TextView petAgeTextView;
-    TextView petWeightTextView;
-    TextView petPriceTextView;
-    TextView petDescriptionTextView;
+    private ImageView ivPetImage;
+    private TextView tvPetId, tvPetName, tvPetColor, tvPetPrice;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_detail);
 
-        petImageView = findViewById(R.id.pet_image_detail);
-        petNameTextView = findViewById(R.id.pet_name_detail);
-        petBreedTextView = findViewById(R.id.pet_breed_detail);
-        petAgeTextView = findViewById(R.id.pet_age_detail);
-        petWeightTextView = findViewById(R.id.pet_weight_detail);
-        petPriceTextView = findViewById(R.id.pet_price_detail);
-        petDescriptionTextView = findViewById(R.id.pet_description_detail);
+        ivPetImage = findViewById(R.id.iv_pet_image);
+        tvPetId = findViewById(R.id.tv_pet_id);
+        tvPetName = findViewById(R.id.tv_pet_name);
+        tvPetColor = findViewById(R.id.tv_pet_color);
+        tvPetPrice = findViewById(R.id.tv_pet_price);
 
-        // Nhận đối tượng Pet từ Intent
-        Pet pet = getIntent().getParcelableExtra("pet");
+        Intent intent = getIntent();
+        Pet pet = intent.getParcelableExtra("pet");
 
         if (pet != null) {
-            petNameTextView.setText(pet.getName());
-            petBreedTextView.setText(pet.getBreed());
-            petAgeTextView.setText(String.valueOf(pet.getAge()));
-            petPriceTextView.setText(String.valueOf(pet.getPrice()));
-
-            // Bạn có thể thêm hình ảnh cụ thể bằng cách sử dụng pet.getImage() nếu có URL hoặc resource id
-            petImageView.setImageResource(R.drawable.ic_pet_placeholder);
+            tvPetId.setText("ID: " + pet.getId());
+            tvPetName.setText(pet.getName());
+            tvPetColor.setText("Color: " + pet.getColor());
+            tvPetPrice.setText("Price: $" + pet.getPrice());
+            Picasso.get().load(pet.getImage()).into(ivPetImage);
         }
     }
 }
-
