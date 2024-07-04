@@ -3,19 +3,23 @@ package com.example.product_sale.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.product_sale.R;
 import com.example.product_sale.adapter.PetAdapter;
+import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Pet;
-import com.example.product_sale.service.CustomerApiService;
 import com.example.product_sale.service.PetApiService;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +29,8 @@ public class HomeActivity extends AppCompatActivity {
     private PetAdapter petAdapter;
     private List<Pet> mListPet;
     private List<Customer> mListCustomer;
+
+    private Cart cart;
 
 
     @Override
@@ -40,7 +46,8 @@ public class HomeActivity extends AppCompatActivity {
         rvPets.addItemDecoration(itemDecoration);
 
         mListPet = new ArrayList<>();
-        petAdapter = new PetAdapter(mListPet);
+        cart = new Cart();
+        petAdapter = new PetAdapter(this, mListPet, cart);
         rvPets.setAdapter(petAdapter);
 
         callApiGetPets();
