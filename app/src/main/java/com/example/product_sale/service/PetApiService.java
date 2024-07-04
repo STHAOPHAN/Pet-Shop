@@ -1,8 +1,6 @@
 package com.example.product_sale.service;
 
 import com.example.product_sale.models.Pet;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
