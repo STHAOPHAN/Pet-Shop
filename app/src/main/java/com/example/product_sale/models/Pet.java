@@ -1,14 +1,9 @@
 package com.example.product_sale.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
-public class Pet implements Parcelable {
+public class Pet {
     private int id;
     private int petTypeId;
     private String breed;
@@ -16,11 +11,20 @@ public class Pet implements Parcelable {
     private int age;
     private String gender;
     private String color;
-    private BigDecimal price;
+    private double price;
     private String image;
     private boolean isAvailable;
+    private Object petType;
+    private List<Object> orderPets;
+    private List<Object> sales;
 
-    public Pet() {
+    public Pet(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Pet(int id, int petTypeId, String breed, String name, int age, String gender, String color, double price, String image, boolean isAvailable, Object petType, List<Object> orderPets, List<Object> sales) {
         this.id = id;
         this.petTypeId = petTypeId;
         this.breed = breed;
@@ -31,32 +35,12 @@ public class Pet implements Parcelable {
         this.price = price;
         this.image = image;
         this.isAvailable = isAvailable;
-    }
-// Getters và Setters
-
-    protected Pet(Parcel in) {
-        id = in.readInt();
-        petTypeId = in.readInt();
-        breed = in.readString();
-        name = in.readString();
-        age = in.readInt();
-        gender = in.readString();
-        color = in.readString();
-        image = in.readString();
-        isAvailable = in.readByte() != 0;
+        this.petType = petType;
+        this.orderPets = orderPets;
+        this.sales = sales;
     }
 
-    public static final Creator<Pet> CREATOR = new Creator<Pet>() {
-        @Override
-        public Pet createFromParcel(Parcel in) {
-            return new Pet(in);
-        }
-
-        @Override
-        public Pet[] newArray(int size) {
-            return new Pet[size];
-        }
-    };
+    // Getters và Setters
 
     public int getId() {
         return id;
@@ -114,11 +98,11 @@ public class Pet implements Parcelable {
         this.color = color;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -138,21 +122,27 @@ public class Pet implements Parcelable {
         isAvailable = available;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Object getPetType() {
+        return petType;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeInt(petTypeId);
-        dest.writeString(breed);
-        dest.writeString(name);
-        dest.writeInt(age);
-        dest.writeString(gender);
-        dest.writeString(color);
-        dest.writeString(image);
-        dest.writeByte((byte) (isAvailable ? 1 : 0));
+    public void setPetType(Object petType) {
+        this.petType = petType;
+    }
+
+    public List<Object> getOrderPets() {
+        return orderPets;
+    }
+
+    public void setOrderPets(List<Object> orderPets) {
+        this.orderPets = orderPets;
+    }
+
+    public List<Object> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Object> sales) {
+        this.sales = sales;
     }
 }

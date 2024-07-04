@@ -328,5 +328,7 @@
     <string name="title_map">Map</string>
     <string name="title_chat">Chat</string>
     <string name="title_notifications">Notifications</string>
-
+    <string name="menu_home">Home</string>
+    <string name="menu_cart">Giỏ Hàng</string>
+    <string name="menu_profile">Thông Tin Cá Nhân</string>
 </resources>
