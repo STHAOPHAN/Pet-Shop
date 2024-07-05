@@ -17,8 +17,8 @@
             android:id="@+id/iv_pet"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_pet_image" /> <!-- Thay đổi ảnh mặc định nếu không có ảnh -->
+            android:scaleType="centerCrop" />
+            <!-- android:src="@drawable/default_pet_image" />  Thay đổi ảnh mặc định nếu không có ảnh -->
 
         <LinearLayout
             android:layout_width="0dp"

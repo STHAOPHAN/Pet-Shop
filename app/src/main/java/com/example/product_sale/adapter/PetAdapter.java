@@ -47,7 +47,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         holder.btnAddToCart.setOnClickListener(v -> {
             CartItem cartItem = new CartItem(pet, 1);
             cart.addItem(cartItem);
-            // Optionally, show a message to the user
             Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
         });
     }
