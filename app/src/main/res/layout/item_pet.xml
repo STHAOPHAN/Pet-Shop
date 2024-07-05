@@ -17,8 +17,9 @@
             android:id="@+id/iv_pet"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="centerCrop" />
-            <!-- android:src="@drawable/default_pet_image" />  Thay đổi ảnh mặc định nếu không có ảnh -->
+            android:scaleType="centerCrop"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/default_pet_image" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,32 +29,71 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_pet_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_pet_breed"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Pet Name" /> <!-- Text mặc định nếu không có dữ liệu -->
+                android:text="Giống loài: " />
+
+            <TextView
+                android:id="@+id/tv_pet_name"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                android:text="Tên: " />
+
+            <TextView
+                android:id="@+id/tv_pet_color"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                android:text="Màu: " />
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_pet_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="Giới tính: "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_pet_age"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:textSize="16sp"
+                    android:text="Tuổi: " />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_pet_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@android:color/holo_green_dark"
                 android:textSize="16sp"
-                android:text="Price: $0.00" /> <!-- Text mặc định nếu không có dữ liệu -->
-
+                android:textStyle="bold"
+                android:text="Giá: " />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_add_to_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_input_add"
-            android:contentDescription="Add to Cart" /> <!-- Định nghĩa content description cho ImageButton -->
+            android:contentDescription="Add to Cart" />
+
 
     </LinearLayout>
 

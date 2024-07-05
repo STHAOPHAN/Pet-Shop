@@ -30,7 +30,6 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView rvPets;
     private PetAdapter petAdapter;
     private List<Pet> mListPet;
-    private List<Customer> mListCustomer;
     private ImageButton btnDetails;
 
 

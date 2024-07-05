@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.product_sale.R;
 import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.CartItem;
@@ -40,14 +41,27 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         Pet pet = petList.get(position);
-        holder.tvPetName.setText(pet.getName());
-        holder.tvPetPrice.setText("$" + pet.getPrice());
-        // Đặt hình ảnh pet nếu có
-        // holder.ivPet.setImageResource(R.drawable.default_pet_image);
+        holder.tvPetBreed.setText("Giống loài: " + pet.getBreed());
+        holder.tvPetName.setText("Tên: " + pet.getName());
+        holder.tvPetAge.setText("Tuổi: " + pet.getAge());
+        holder.tvPetColor.setText("Màu: " + pet.getColor());
+        holder.tvPetGender.setText("Giới tính: " + pet.getGender());
+        holder.tvPetPrice.setText("Giá: " + pet.getPrice() + " VND");
+
+        // Tìm resource ID của ảnh từ tên ảnh
+        int imageResId = context.getResources().getIdentifier(pet.getImage(), "drawable", context.getPackageName());
+
+        // Tải và hiển thị ảnh sử dụng Glide
+        Glide.with(holder.itemView.getContext())
+                .load(imageResId)
+                .placeholder(R.drawable.default_pet_image) // Ảnh mặc định khi đang tải
+                .error(R.drawable.default_pet_image) // Ảnh hiển thị khi có lỗi
+                .into(holder.ivPet);
+
         holder.btnAddToCart.setOnClickListener(v -> {
             CartItem cartItem = new CartItem(pet, 1);
             cart.addItem(cartItem);
-            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -58,16 +72,19 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
 
     public static class PetViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPet;
-        TextView tvPetName, tvPetPrice;
+        TextView tvPetName, tvPetBreed, tvPetColor, tvPetAge, tvPetGender, tvPetPrice;
         ImageButton btnAddToCart;
 
         public PetViewHolder(View itemView) {
             super(itemView);
             ivPet = itemView.findViewById(R.id.iv_pet);
             tvPetName = itemView.findViewById(R.id.tv_pet_name);
+            tvPetBreed = itemView.findViewById(R.id.tv_pet_breed);
+            tvPetColor = itemView.findViewById(R.id.tv_pet_color);
+            tvPetAge = itemView.findViewById(R.id.tv_pet_age);
+            tvPetGender = itemView.findViewById(R.id.tv_pet_gender);
             tvPetPrice = itemView.findViewById(R.id.tv_pet_price);
             btnAddToCart = itemView.findViewById(R.id.btn_add_to_cart);
         }
     }
 }
-
