@@ -53,4 +53,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.code.gson:gson:2.9.0")
+    implementation("com.mapbox.maps:android:11.4.1")
 }

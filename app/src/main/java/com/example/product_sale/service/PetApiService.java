@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 public interface PetApiService {
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/pets")
