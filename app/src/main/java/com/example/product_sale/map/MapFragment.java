@@ -1,9 +1,5 @@
 package com.example.product_sale.map;
 import static com.mapbox.maps.plugin.gestures.GesturesUtils.getGestures;
-import static com.mapbox.maps.plugin.locationcomponent.LocationComponentUtils.createDefault2DPuck;
-import static com.mapbox.maps.plugin.locationcomponent.LocationComponentUtils.getLocationComponent;
-
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,47 +8,44 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-
 import com.example.product_sale.R;
 import com.example.product_sale.databinding.FragmentMapBinding;
+import com.example.product_sale.models.ShopLocation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
-import com.mapbox.maps.ImageHolder;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.MapboxMap;
 import com.mapbox.maps.Style;
-import com.mapbox.maps.plugin.LocationPuck;
-import com.mapbox.maps.plugin.LocationPuck2D;
-import com.mapbox.maps.plugin.PuckBearing;
+import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
+import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 import com.mapbox.maps.plugin.gestures.OnMoveListener;
-import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin;
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener;
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener;
-import com.mapbox.maps.plugin.viewport.ViewportPlugin;
-import com.mapbox.maps.plugin.viewport.data.FollowPuckViewportStateOptions;
-import com.mapbox.maps.plugin.viewport.state.FollowPuckViewportState;
-import com.mapbox.maps.plugin.viewport.state.ViewportState;
-import com.mapbox.maps.plugin.viewport.transition.ViewportTransition;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapFragment extends Fragment {
+    private static final int REQUEST_CODE_SHOP_LOCATION = 1001;
     private FragmentMapBinding binding;
     private MapView mapView;
 
@@ -60,9 +53,9 @@ public class MapFragment extends Fragment {
     private PermissionsManager permissionsManager;
 
     private FloatingActionButton floatingActionButton;
-
-    private static final double CUSTOM_LATITUDE = 10.7775906;
-    private static final double CUSTOM_LONGITUDE = 106.509582;
+    private Point markedLocation;
+    private static final double CUSTOM_LATITUDE = 10.7527936;
+    private static final double CUSTOM_LONGITUDE = 106.6698121;
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean result) {
@@ -85,37 +78,44 @@ public class MapFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        mapView.getMapboxMap().loadStyleUri("mapbox://styles/sthaophan/cly8nycqc00gu01pf5n4qcaqv", new Style.OnStyleLoaded(){
+        markedLocation = Point.fromLngLat(CUSTOM_LONGITUDE, CUSTOM_LATITUDE);
 
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
-                mapView.getMapboxMap().setCamera(new CameraOptions.Builder().zoom(17.0).build());
-                LocationComponentPlugin locationComponentPlugin = getLocationComponent(mapView);
-                locationComponentPlugin.setEnabled(true);
-                LocationPuck2D locationPuck2D = new LocationPuck2D();
-                Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.mapbox_baseline_location_on_24);
-                if (drawable != null) {
-                    Bitmap bitmap = drawableToBitmap(drawable);
-                    ImageHolder imageHolder = ImageHolder.from(bitmap);
-                    locationPuck2D.setBearingImage(imageHolder);
-                }
-                locationComponentPlugin.setLocationPuck(locationPuck2D);
-                locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-                locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-                getGestures(mapView).addOnMoveListener(onMoveListener);
-
-                floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-                        locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-                        getGestures(mapView).addOnMoveListener(onMoveListener);
-                        floatingActionButton.hide();
-                    }
-                });
-            }
+        mapView.getMapboxMap().loadStyleUri("mapbox://styles/sthaophan/cly8nycqc00gu01pf5n4qcaqv", style -> {
+            initializeMap(style);
         });
         return root;
+    }
+
+    private void initializeMap(@NonNull Style style) {
+        mapboxMap = mapView.getMapboxMap();
+        mapboxMap.setCamera(new CameraOptions.Builder()
+                .center(markedLocation)
+                .zoom(17.0)
+                .build());
+
+        addMarker(markedLocation);
+
+        getGestures(mapView).addOnMoveListener(onMoveListener);
+
+        floatingActionButton.setOnClickListener(v -> focusOnMarkedLocation());
+    }
+
+    private void addMarker(Point location) {
+        AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
+        PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(annotationPlugin, mapView);
+
+        Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.mapbox_baseline_location_on_24);
+        if (drawable != null) {
+            Bitmap bitmap = drawableToBitmap(drawable);
+            if (bitmap != null) {
+                PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
+                        .withPoint(location)
+                        .withIconImage(bitmap);
+                pointAnnotationManager.create(pointAnnotationOptions);
+            } else {
+                Toast.makeText(getContext(), "Icon image could not be loaded", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
@@ -131,27 +131,9 @@ public class MapFragment extends Fragment {
         return bitmap;
     }
 
-    private  final OnIndicatorBearingChangedListener onIndicatorBearingChangedListener = new OnIndicatorBearingChangedListener() {
-        @Override
-        public void onIndicatorBearingChanged(double v) {
-            mapView.getMapboxMap().setCamera(new CameraOptions.Builder().bearing(v).build());
-        }
-    };
-
-    private  final OnIndicatorPositionChangedListener onIndicatorPositionChangedListener = new OnIndicatorPositionChangedListener() {
-        @Override
-        public void onIndicatorPositionChanged(@NonNull Point point) {
-            mapView.getMapboxMap().setCamera(new CameraOptions.Builder().center(point).zoom(17.0).build());
-            getGestures(mapView).setFocalPoint(mapView.getMapboxMap().pixelForCoordinate(point));
-        }
-    };
-
     private final OnMoveListener onMoveListener = new OnMoveListener() {
         @Override
         public void onMoveBegin(@NonNull MoveGestureDetector moveGestureDetector) {
-            getLocationComponent(mapView).removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-            getLocationComponent(mapView).addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-            getGestures(mapView).removeOnMoveListener(onMoveListener);
             floatingActionButton.show();
         }
 
@@ -162,9 +144,16 @@ public class MapFragment extends Fragment {
 
         @Override
         public void onMoveEnd(@NonNull MoveGestureDetector moveGestureDetector) {
-
         }
     };
+
+    private void focusOnMarkedLocation() {
+        mapboxMap.setCamera(new CameraOptions.Builder()
+                .center(markedLocation)
+                .zoom(17.0)
+                .build());
+        floatingActionButton.hide();
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -193,5 +182,42 @@ public class MapFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_shop_location, menu); // Inflate the menu
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_select_shop_location) {
+            List<ShopLocation> list = new ArrayList<>();
+            list.add(new ShopLocation("1163 Đ. Trần Hưng Đạo, Phường 5, Quận 5, Hồ Chí Minh", 10.7527936, 106.6698121));
+            list.add(new ShopLocation("847 Đ. La Thành, Láng Thượng, Ba Đình, Hà Nội", 21.025833, 105.7951791));
+            list.add(new ShopLocation("177 Đ. Nguyễn Hoàng, Nam Dương, Hải Châu, Đà Nẵng", 16.0435949, 108.1709148));
+
+            ShopLocationPopup.show(getContext(), list, new ShopLocationPopup.OnShopLocationSelectedListener() {
+                @Override
+                public void onShopLocationSelected(double latitude, double longitude) {
+                    markedLocation = Point.fromLngLat(longitude, latitude);
+                    mapboxMap.setCamera(new CameraOptions.Builder()
+                            .center(markedLocation)
+                            .zoom(17.0)
+                            .build());
+                    addMarker(markedLocation);
+                }
+            });
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
