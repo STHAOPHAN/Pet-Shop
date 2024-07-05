@@ -1,21 +1,27 @@
 package com.example.product_sale.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.product_sale.R;
 import com.example.product_sale.adapter.PetAdapter;
+import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Pet;
-import com.example.product_sale.service.CustomerApiService;
 import com.example.product_sale.service.PetApiService;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView rvPets;
     private PetAdapter petAdapter;
     private List<Pet> mListPet;
-    private List<Customer> mListCustomer;
+    private ImageButton btnDetails;
 
 
     @Override
@@ -40,9 +46,14 @@ public class HomeActivity extends AppCompatActivity {
         rvPets.addItemDecoration(itemDecoration);
 
         mListPet = new ArrayList<>();
-        petAdapter = new PetAdapter(mListPet);
+        petAdapter = new PetAdapter(this, mListPet, Cart.getInstance());
         rvPets.setAdapter(petAdapter);
-
+        btnDetails = findViewById(R.id.btn_details);
+        btnDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(Cart.getInstance().getCartItems()));
+            startActivity(intent);
+        });
         callApiGetPets();
     }
 
