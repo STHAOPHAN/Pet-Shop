@@ -1,5 +1,8 @@
 package com.example.product_sale.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.product_sale.R;
+import com.example.product_sale.models.CartItem;
 import com.example.product_sale.models.Pet;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private List<Pet> mListPet;
+    private List<CartItem> cartItems;
+    private Context context;
 
-    public CartAdapter(List<Pet> mListPet) {
-        this.mListPet = mListPet;
+    public CartAdapter(Context context, List<CartItem> cartItems) {
+        this.context = context;
+        this.cartItems = cartItems;
     }
 
     @NonNull
@@ -31,32 +37,49 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        Pet pet = mListPet.get(position);
-        if (pet == null) {
+        CartItem cartItem = cartItems.get(position);
+        if (cartItem == null) {
             return;
         }
+        Pet pet = cartItem.getPet();
         // Gán dữ liệu cho các view trong item_cart.xml
         holder.ivPet.setImageResource(R.drawable.ic_app_background); // Giả sử bạn có hình placeholder
         holder.tvPetName.setText(pet.getName());
         holder.tvPetColor.setText("Màu: " + pet.getColor());
-        holder.tvPetPrice.setText("Giá: " + pet.getPrice());
-        holder.tvPetId.setText("ID: " + pet.getId());
+        holder.tvPetPrice.setText("Giá: " + pet.getPrice() * cartItem.getQuantity());
+        holder.tvPetQuantity.setText("Số lượng: " + cartItem.getQuantity());
 
-        // Xử lý sự kiện khi bấm nút xóa khỏi giỏ hàng
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListPet.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                // Cập nhật lại tổng tiền nếu cần
-                // ((CartActivity) holder.itemView.getContext()).updateTotalPrice();
+                showRemoveConfirmationDialog(position);
             }
         });
+    }
+    private void showRemoveConfirmationDialog(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Remove Confirmation");
+        builder.setMessage("Are you sure you want to remove this item from the cart??");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeItem(position);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void removeItem(int position) {
+        cartItems.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mListPet != null ? mListPet.size() : 0;
+        return cartItems != null ? cartItems.size() : 0;
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
@@ -64,7 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         private TextView tvPetName;
         private TextView tvPetColor;
         private TextView tvPetPrice;
-        private TextView tvPetId;
+        private TextView tvPetQuantity;
         private ImageButton btnRemove;
 
         public CartViewHolder(@NonNull View itemView) {
@@ -73,7 +96,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             tvPetName = itemView.findViewById(R.id.tv_pet_name);
             tvPetColor = itemView.findViewById(R.id.tv_pet_color);
             tvPetPrice = itemView.findViewById(R.id.tv_pet_price);
-            tvPetId = itemView.findViewById(R.id.tv_pet_id);
+            tvPetQuantity = itemView.findViewById(R.id.tv_pet_quantity);
             btnRemove = itemView.findViewById(R.id.btn_remove);
         }
     }

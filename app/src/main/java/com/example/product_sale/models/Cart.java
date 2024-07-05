@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
+    private static Cart instance;
     private List<CartItem> cartItems;
 
-    public Cart() {
-        this.cartItems = new ArrayList<>();
+    private Cart() {
+        cartItems = new ArrayList<>();
+    }
+
+    public static synchronized Cart getInstance() {
+        if (instance == null) {
+            instance = new Cart();
+        }
+        return instance;
     }
 
     public void addItem(CartItem item) {

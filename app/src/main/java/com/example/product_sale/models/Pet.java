@@ -1,9 +1,11 @@
 package com.example.product_sale.models;
 
-import java.math.BigDecimal;
+import android.os.Parcelable;
+import android.os.Parcel;
+
 import java.util.List;
 
-public class Pet {
+public class Pet implements Parcelable {
     private int id;
     private int petTypeId;
     private String breed;
@@ -40,7 +42,31 @@ public class Pet {
         this.sales = sales;
     }
 
-    // Getters và Setters
+    protected Pet(Parcel in) {
+        id = in.readInt();
+        petTypeId = in.readInt();
+        breed = in.readString();
+        name = in.readString();
+        age = in.readInt();
+        gender = in.readString();
+        color = in.readString();
+        price = in.readDouble();
+        image = in.readString();
+        isAvailable = in.readByte() != 0;
+        // Note: Object and List<Object> handling can be complex and is not implemented here.
+    }
+
+    public static final Creator<Pet> CREATOR = new Creator<Pet>() {
+        @Override
+        public Pet createFromParcel(Parcel in) {
+            return new Pet(in);
+        }
+
+        @Override
+        public Pet[] newArray(int size) {
+            return new Pet[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -144,5 +170,25 @@ public class Pet {
 
     public void setSales(List<Object> sales) {
         this.sales = sales;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(petTypeId);
+        dest.writeString(breed);
+        dest.writeString(name);
+        dest.writeInt(age);
+        dest.writeString(gender);
+        dest.writeString(color);
+        dest.writeDouble(price);
+        dest.writeString(image);
+        dest.writeByte((byte) (isAvailable ? 1 : 0));
+        // Note: Object and List<Object> handling can be complex and is not implemented here.
     }
 }

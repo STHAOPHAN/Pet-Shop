@@ -1,7 +1,9 @@
 package com.example.product_sale.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -29,8 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     private PetAdapter petAdapter;
     private List<Pet> mListPet;
     private List<Customer> mListCustomer;
-
-    private Cart cart;
+    private ImageButton btnDetails;
 
 
     @Override
@@ -46,10 +47,14 @@ public class HomeActivity extends AppCompatActivity {
         rvPets.addItemDecoration(itemDecoration);
 
         mListPet = new ArrayList<>();
-        cart = new Cart();
-        petAdapter = new PetAdapter(this, mListPet, cart);
+        petAdapter = new PetAdapter(this, mListPet, Cart.getInstance());
         rvPets.setAdapter(petAdapter);
-
+        btnDetails = findViewById(R.id.btn_details);
+        btnDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(Cart.getInstance().getCartItems()));
+            startActivity(intent);
+        });
         callApiGetPets();
     }
 
