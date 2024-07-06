@@ -45,9 +45,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         Pet pet = petList.get(position);
         holder.tvPetBreed.setText("Giống loài: " + pet.getBreed());
         holder.tvPetName.setText("Tên: " + pet.getName());
-        holder.tvPetAge.setText("Tuổi: " + pet.getAge());
         holder.tvPetColor.setText("Màu: " + pet.getColor());
-        holder.tvPetGender.setText("Giới tính: " + pet.getGender());
         holder.tvPetPrice.setText("Giá: " + pet.getPrice() + " VND");
 
         // Tìm resource ID của ảnh từ tên ảnh
@@ -81,7 +79,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
 
     public static class PetViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPet;
-        TextView tvPetImage, tvPetName, tvPetBreed, tvPetColor, tvPetAge, tvPetGender, tvPetPrice;
+        TextView tvPetName, tvPetBreed, tvPetColor, tvPetPrice;
         ImageButton btnAddToCart;
 
         public PetViewHolder(View itemView) {
@@ -90,8 +88,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
             tvPetName = itemView.findViewById(R.id.tv_pet_name);
             tvPetBreed = itemView.findViewById(R.id.tv_pet_breed);
             tvPetColor = itemView.findViewById(R.id.tv_pet_color);
-            tvPetAge = itemView.findViewById(R.id.tv_pet_age);
-            tvPetGender = itemView.findViewById(R.id.tv_pet_gender);
             tvPetPrice = itemView.findViewById(R.id.tv_pet_price);
             btnAddToCart = itemView.findViewById(R.id.btn_add_to_cart);
         }

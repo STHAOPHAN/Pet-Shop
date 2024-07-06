@@ -57,23 +57,6 @@ public class HomeActivity extends AppCompatActivity {
         callApiGetPets();
     }
 
-/*    private void callApiGetPets() {
-
-        PetApiService.apiService.getPets().enqueue(new Callback<List<Pet>>() {
-            @Override
-            public void onResponse(Call<List<Pet>> call, Response<List<Pet>> response) {
-                mListPet = response.body();
-                PetAdapter petAdapter1 = new PetAdapter(mListPet);
-                rvPets.setAdapter(petAdapter1);
-            }
-
-            @Override
-            public void onFailure(Call<List<Pet>> call, Throwable t) {
-                Log.e("API_ERROR", "Failure: " + t.getMessage());
-            }
-        });
-    }*/
-
     private void callApiGetPets() {
         PetApiService petApiService = PetApiService.retrofit.create(PetApiService.class);
         petApiService.getPets().enqueue(new Callback<List<Pet>>() {

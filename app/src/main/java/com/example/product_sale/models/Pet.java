@@ -16,7 +16,7 @@ public class Pet implements Parcelable {
     private double price;
     private String image;
     private boolean isAvailable;
-    private Object petType;
+    private PetType petType;
     private List<Object> orderPets;
     private List<Object> sales;
 
@@ -26,7 +26,7 @@ public class Pet implements Parcelable {
         this.price = price;
     }
 
-    public Pet(int id, int petTypeId, String breed, String name, int age, String gender, String color, double price, String image, boolean isAvailable, Object petType, List<Object> orderPets, List<Object> sales) {
+    public Pet(int id, int petTypeId, String breed, String name, int age, String gender, String color, double price, String image, boolean isAvailable, PetType petType, List<Object> orderPets, List<Object> sales) {
         this.id = id;
         this.petTypeId = petTypeId;
         this.breed = breed;
@@ -148,11 +148,11 @@ public class Pet implements Parcelable {
         isAvailable = available;
     }
 
-    public Object getPetType() {
+    public PetType getPetType() {
         return petType;
     }
 
-    public void setPetType(Object petType) {
+    public void setPetType(PetType petType) {
         this.petType = petType;
     }
 

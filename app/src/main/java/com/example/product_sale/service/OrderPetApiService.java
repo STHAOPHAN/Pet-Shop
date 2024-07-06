@@ -1,6 +1,5 @@
 package com.example.product_sale.service;
-
-import com.example.product_sale.models.Pet;
+import com.example.product_sale.models.OrderPet;
 
 import java.util.List;
 
@@ -13,26 +12,17 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-
-public interface PetApiService {
-
+public interface OrderPetApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-    @GET("api/pets")
-    Call<List<Pet>> getPets();
+    @GET("api/orderpets")
+    Call<List<OrderPet>> getOrderPets();
 
-    @POST("api/pets")
-    Call<Pet> createPet(@Body Pet pet);
+    @POST("api/orderpets")
+    Call<OrderPet> createOrderPet(@Body OrderPet orderPet);
 
-    @PUT("api/pets/{id}")
-    Call<Pet> updatePet(@Path("id") int id, @Body Pet pet);
-
-    @DELETE("api/pets/{id}")
-    Call<Void> deletePet(@Path("id") int id);
-
-    // If you need to get a single pet by ID, you can add this method:
-    @GET("api/pets/{id}")
-    Call<Pet> getPetById(@Path("id") int id);
+    @PUT("api/orderpets/{id}")
+    Call<OrderPet> updateOrderPet(@Path("id") int id, @Body OrderPet orderPet);
 }
