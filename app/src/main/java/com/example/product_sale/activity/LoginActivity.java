@@ -96,9 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("Email", loginResponse.getEmail());
                                 editor.putString("Phone", loginResponse.getPhone());
                                 editor.putString("Address", loginResponse.getAddress());
-                                Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                 startActivity(intent);
+                                //Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();

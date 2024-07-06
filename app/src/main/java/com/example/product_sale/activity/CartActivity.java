@@ -74,6 +74,8 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(CartActivity.this, "Checkout successful", Toast.LENGTH_SHORT).show();
+                Cart.getInstance().clear();
+                cartAdapter.notifyDataSetChanged();
             }
 
             @Override
