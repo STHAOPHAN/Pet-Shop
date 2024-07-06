@@ -73,7 +73,30 @@
 
 
             </LinearLayout>
-
+            <EditText
+                android:id="@+id/edtPhone"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_standard"
+                android:layout_marginTop="@dimen/spacing_standard_new"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:inputType="textEmailAddress"
+                android:hint="@string/hint_mobile_no"
+                android:autofillHints="@string/hint_mobile_no"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/edtAddress"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_standard"
+                android:layout_marginTop="@dimen/spacing_standard_new"
+                android:layout_marginEnd="@dimen/spacing_standard"
+                android:inputType="textEmailAddress"
+                android:hint="@string/hint_address"
+                android:autofillHints="@string/hint_address"
+                android:singleLine="true" />
             <EditText
                 android:id="@+id/edtEmail"
                 style="@style/EditTextStyle"
