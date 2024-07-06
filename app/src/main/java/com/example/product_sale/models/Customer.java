@@ -29,6 +29,14 @@ public class Customer implements Parcelable {
         this.address = address;
     }
 
+    public Customer(String fullName, String password, String email, String phone, String address) {
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
     protected Customer(Parcel in) {
         id = in.readInt();
         fullName = in.readString();

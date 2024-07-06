@@ -1,47 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="2dp">
 
-    <!-- Tin nhắn của người dùng -->
     <LinearLayout
-        android:id="@+id/user_message_container"
-        android:layout_width="match_parent"
+        android:id="@+id/sender_message_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:padding="18dp">
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/user_message_background"
+        android:orientation="vertical"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_user_message"
+            android:id="@+id/text_message_sender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/user_message_background"
-            android:padding="10dp"
-            android:textColor="@android:color/white"
+            android:maxWidth="300dp"
+            android:padding="8dp"
             android:text="User messages"
-            android:maxWidth="300dp" />
+            android:textColor="@android:color/white"/>
+
     </LinearLayout>
 
-    <!-- Tin nhắn của chủ shop -->
     <LinearLayout
-        android:id="@+id/shop_message_container"
-        android:layout_width="match_parent"
+        android:id="@+id/receiver_message_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="start"
-        android:padding="18dp">
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shop_message_background"
+        android:orientation="vertical"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_shop_message"
+            android:id="@+id/text_message_receiver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shop_message_background"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
+            android:maxWidth="300dp"
+            android:padding="8dp"
             android:text="Shop messages"
-            android:maxWidth="300dp" />
+            android:textColor="@android:color/black" />
+
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/text_sender_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:text="Sent at 12:30 PM"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sender_message_container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_receiver_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:padding="3dp"
+        android:text="Sent at 12:30 PM"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/receiver_message_container"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
