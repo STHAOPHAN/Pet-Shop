@@ -22,10 +22,7 @@ public interface PetApiService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/pets")
-    Call<List<Pet>> getPets(
-            @Query("petTypeId") Integer petTypeId,
-            @Query("breed") String breed
-    );
+    Call<List<Pet>> getPets(@Query("petType") String petType, @Query("breed") String breed);
 
     @POST("api/pets")
     Call<Pet> createPet(@Body Pet pet);
