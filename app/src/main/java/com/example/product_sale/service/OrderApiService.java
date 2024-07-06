@@ -1,5 +1,7 @@
 package com.example.product_sale.service;
+
 import com.example.product_sale.models.Order;
+import com.example.product_sale.models.Request.OrderModel;
 
 import java.util.List;
 
@@ -28,4 +30,6 @@ public interface OrderApiService {
 
     @DELETE("api/orders/{id}")
     Call<Void> deleteOrder(@Path("id") int id);
+    @POST("api/orders/checkout")
+    Call<Void> checkoutOrder(@Body OrderModel orderModel);
 }
