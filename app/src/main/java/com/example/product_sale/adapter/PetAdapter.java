@@ -1,6 +1,7 @@
 package com.example.product_sale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.product_sale.R;
+import com.example.product_sale.activity.PetDetailActivity;
 import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.CartItem;
 import com.example.product_sale.models.Pet;
@@ -64,6 +66,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
             cart.addItem(cartItem);
             Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
         });
+
+        // Set the click listener for item view
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PetDetailActivity.class);
+            intent.putExtra("pet", pet);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -91,7 +100,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         ImageView ivPet;
         TextView tvPetName, tvPetBreed, tvPetColor, tvPetPrice;
         ImageButton btnAddToCart;
-
         public PetViewHolder(View itemView) {
             super(itemView);
             ivPet = itemView.findViewById(R.id.iv_pet);

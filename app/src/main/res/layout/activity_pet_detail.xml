@@ -26,7 +26,6 @@
             android:text="ID: 1"
             android:textSize="18sp"
             android:textColor="@color/black" />
-
         <!-- Tên của pet -->
         <TextView
             android:id="@+id/tv_pet_name"
@@ -36,6 +35,36 @@
             android:text="Pet Name"
             android:textSize="24sp"
             android:textStyle="bold" />
+
+        <!-- breed của pet -->
+        <TextView
+            android:id="@+id/tv_pet_breed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Breed: Labrador"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <!-- Tuổi của pet -->
+        <TextView
+            android:id="@+id/tv_pet_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Tuổi: 2"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <!-- Giới tính của pet -->
+        <TextView
+            android:id="@+id/tv_pet_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Giới tính: Male"
+            android:textSize="18sp" />
+
 
         <!-- Màu sắc của pet -->
         <TextView
