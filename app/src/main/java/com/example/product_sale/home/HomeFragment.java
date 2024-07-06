@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
 
     private void callApiGetPets() {
         PetApiService petApiService = PetApiService.retrofit.create(PetApiService.class);
-        petApiService.getPets().enqueue(new Callback<List<Pet>>() {
+        petApiService.getPets(null, null).enqueue(new Callback<List<Pet>>() {
             @Override
             public void onResponse(Call<List<Pet>> call, Response<List<Pet>> response) {
                 if (response.isSuccessful()) {

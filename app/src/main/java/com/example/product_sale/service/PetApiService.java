@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PetApiService {
 
@@ -21,7 +22,10 @@ public interface PetApiService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/pets")
-    Call<List<Pet>> getPets();
+    Call<List<Pet>> getPets(
+            @Query("petTypeId") Integer petTypeId,
+            @Query("breed") String breed
+    );
 
     @POST("api/pets")
     Call<Pet> createPet(@Body Pet pet);
