@@ -1,6 +1,5 @@
 package com.example.product_sale.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.R;
 import com.example.product_sale.adapter.PetAdapter;
 import com.example.product_sale.models.Cart;
-import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Pet;
 import com.example.product_sale.service.PetApiService;
 
@@ -49,11 +47,6 @@ public class HomeActivity extends AppCompatActivity {
         petAdapter = new PetAdapter(this, mListPet, Cart.getInstance());
         rvPets.setAdapter(petAdapter);
         btnDetails = findViewById(R.id.btn_details);
-        btnDetails.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-            intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(Cart.getInstance().getCartItems()));
-            startActivity(intent);
-        });
         callApiGetPets();
     }
 

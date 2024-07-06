@@ -1,8 +1,6 @@
 package com.example.product_sale.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,18 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.product_sale.R;
-import com.example.product_sale.models.Request.LoginModel;
-import com.example.product_sale.models.Respone.LoginResponse;
-import com.example.product_sale.service.AuthenticateApiService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -79,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    AuthenticateApiService authenticateApiService = AuthenticateApiService.retrofit.create(AuthenticateApiService.class);
+                    /*AuthenticateApiService authenticateApiService = AuthenticateApiService.retrofit.create(AuthenticateApiService.class);
                     LoginModel loginModel = new LoginModel(email, password);
                     Call<LoginResponse> call = authenticateApiService.login(loginModel);
                     call.enqueue(new Callback<LoginResponse>() {
@@ -110,8 +105,8 @@ public class LoginActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    });
-                    /*mAuth.signInWithEmailAndPassword(email, password)
+                    });*/
+                    mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -127,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            });*/
+                            });
                 }
             });
     }

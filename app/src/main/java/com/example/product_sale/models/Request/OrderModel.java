@@ -3,22 +3,22 @@ package com.example.product_sale.models.Request;
 import java.util.List;
 
 public class OrderModel {
-    private int customerId;
+    private String email;
     private double totalPrice;
     private List<Integer> petIds;
 
-    public OrderModel(int customerId, double totalPrice, List<Integer> petIds) {
-        this.customerId = customerId;
+    public OrderModel(String email, double totalPrice, List<Integer> petIds) {
+        this.email = email;
         this.totalPrice = totalPrice;
         this.petIds = petIds;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerId(String email) {
+        this.email = email;
     }
 
     public double getTotalPrice() {
