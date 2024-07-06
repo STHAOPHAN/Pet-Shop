@@ -20,19 +20,16 @@ import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.CartItem;
 import com.example.product_sale.models.Pet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     private Context context;
     private List<Pet> petList;
-    private List<Pet> petListFull; // Danh sách đầy đủ của tất cả các pet
     private Cart cart;
 
     public PetAdapter(Context context, List<Pet> petList, Cart cart) {
         this.context = context;
-        this.petList = new ArrayList<>(petList);
-        this.petListFull = new ArrayList<>(petList); // Sao chép toàn bộ danh sách
+        this.petList = petList;
         this.cart = cart;
     }
 
@@ -80,26 +77,11 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         return petList.size();
     }
 
-    // Hàm lọc danh sách pet theo petTypeId và giống loài
-    public void filter(String petTypeId, String breed) {
-        petList.clear();
-        if (petTypeId.isEmpty() && breed.isEmpty()) {
-            petList.addAll(petListFull); // Nếu không có bộ lọc, hiển thị tất cả các pet
-        } else {
-            for (Pet pet : petListFull) {
-                if ((petTypeId.isEmpty() || pet.getPetType().getName().equals(petTypeId)) &&
-                        (breed.isEmpty() || pet.getBreed().equals(breed))) {
-                    petList.add(pet);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
     public static class PetViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPet;
         TextView tvPetName, tvPetBreed, tvPetColor, tvPetPrice;
         ImageButton btnAddToCart;
+
         public PetViewHolder(View itemView) {
             super(itemView);
             ivPet = itemView.findViewById(R.id.iv_pet);
