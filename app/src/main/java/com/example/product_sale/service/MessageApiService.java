@@ -1,38 +1,27 @@
 package com.example.product_sale.service;
 
-import com.example.product_sale.models.Pet;
-
+import com.example.product_sale.models.Messages;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-
-public interface PetApiService {
-
+public interface MessageApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-    @GET("api/pets")
-    Call<List<Pet>> getPets();
+    @GET("api/messages")
+    Call<List<Messages>> getMessages();
 
-    @POST("api/pets")
-    Call<Pet> createPet(@Body Pet pet);
+    @POST("api/messages")
+    Call<Messages> createMessage(@Body Messages messages);
 
-    @PUT("api/pets/{id}")
-    Call<Pet> updatePet(@Path("id") int id, @Body Pet pet);
+    @PUT("api/messages/{id}")
+    Call<Messages> updateMessage(@Path("id") int id, @Body Messages messages);
 
-    @DELETE("api/pets/{id}")
-    Call<Void> deletePet(@Path("id") int id);
-
-    // If you need to get a single pet by ID, you can add this method:
-    @GET("api/pets/{id}")
-    Call<Pet> getPetById(@Path("id") int id);
 }

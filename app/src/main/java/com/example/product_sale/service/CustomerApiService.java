@@ -10,15 +10,24 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 public interface CustomerApiService {
-    Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyy").create()           ;
-    CustomerApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://unitask-api-env.eba-way5nszv.ap-southeast-1.elasticbeanstalk.com/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(CustomerApiService.class);
-    @GET("api/users")
-    Call<List<Customer>> getUsers();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    @GET("api/customers")
+    Call<List<Customer>> getCustomers();
+
+    @POST("api/customers")
+    Call<Customer> createCustomer(@Body Customer customer);
+
+    @PUT("api/customers/{id}")
+    Call<Customer> updateCustomer(@Path("id") int id, @Body Customer customer);
 }
