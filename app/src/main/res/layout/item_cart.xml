@@ -14,7 +14,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/iv_pet"
+            android:id="@+id/iv_cart"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop" />

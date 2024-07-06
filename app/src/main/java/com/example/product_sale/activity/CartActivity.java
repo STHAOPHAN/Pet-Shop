@@ -13,16 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.R;
 import com.example.product_sale.adapter.CartAdapter;
 import com.example.product_sale.models.Cart;
-import com.example.product_sale.models.CartItem;
-
-import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView rvCart;
     private CartAdapter cartAdapter;
     private TextView tvTotalPrice;
     private Button btnCheckout;
-    private ArrayList<CartItem> cartItems;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,9 +36,7 @@ public class CartActivity extends AppCompatActivity {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rvCart.addItemDecoration(itemDecoration);
 
-        cartItems = getIntent().getParcelableArrayListExtra("cartItems");
-
-        cartAdapter = new CartAdapter(this, Cart.getInstance().getCartItems());
+        cartAdapter = new CartAdapter(this, Cart.getInstance().getCartItems(), tvTotalPrice);
         rvCart.setAdapter(cartAdapter);
 
         tvTotalPrice.setText("Tổng tiền: " + Cart.getInstance().getTotalPrice());
