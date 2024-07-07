@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="com.example.product_sale.account.AccountFragment"
+        android:name="com.example.product_sale.account.ProfileFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>

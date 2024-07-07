@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="10dp"
         android:background="@android:color/white">
 
         <!-- Trường nhập văn bản -->
