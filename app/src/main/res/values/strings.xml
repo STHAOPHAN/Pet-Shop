@@ -11,6 +11,7 @@
     <string name="logout">Logout</string>
     <string name="add_pet">Add Pet</string>
     <string name="pet_image">Pet Image</string>
+    <string name="revert">Revert</string>
 
     <string name="lbl_sign_in">Sign In</string>
     <string name="lbl_sign_up">Sign Up</string>
@@ -162,6 +163,7 @@
     <string name="hint_city">City</string>
     <string name="hint_pin_code">Pin code</string>
     <string name="hint_mobile_no">Phone number</string>
+    <string name="hint_chat_search">Search by full name, email or ID</string>
     <string name="text_start_to_shopping">Start to Shopping</string>
     <string name="text_todo">TODO</string>
     <string name="text_juliane_deerman">Juliane Deerman</string>

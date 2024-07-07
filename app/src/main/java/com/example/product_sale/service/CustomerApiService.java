@@ -5,6 +5,7 @@ import com.example.product_sale.models.Pet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +22,8 @@ import retrofit2.http.Query;
 public interface CustomerApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
+                    .create()))
             .build();
 
     @GET("api/customers")
@@ -37,4 +39,7 @@ public interface CustomerApiService {
 
     @PUT("api/customers/{id}")
     Call<Customer> updateCustomer(@Path("id") int id, @Body Customer customer);
+
+    @PUT("api/customers/lastmessagedate/{id}")
+    Call<Customer> updateLastMessageDate(@Path("id") int id, @Body String lastMessageDate);
 }

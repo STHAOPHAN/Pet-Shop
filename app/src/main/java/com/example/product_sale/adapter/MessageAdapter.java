@@ -1,5 +1,6 @@
 package com.example.product_sale.adapter;
 
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
-
+        LinearLayout containerMessageSender;
+        LinearLayout containerMessageReceiver;
         TextView textMessageSender;
         TextView textMessageReceiver;
         TextView textTimestampSender;
@@ -52,6 +54,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
+            containerMessageSender = itemView.findViewById(R.id.sender_message_container);
+            containerMessageReceiver = itemView.findViewById(R.id.receiver_message_container);
             textMessageSender = itemView.findViewById(R.id.text_message_sender);
             textMessageReceiver = itemView.findViewById(R.id.text_message_receiver);
             textTimestampSender = itemView.findViewById(R.id.text_sender_timestamp);
@@ -60,15 +64,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         public void bind(Message message) {
             if (message.getSenderId().equals(currentUserId)) {
-                textMessageSender.setVisibility(View.VISIBLE);
-                textMessageReceiver.setVisibility(View.GONE);
+                containerMessageSender.setVisibility(View.VISIBLE);
+                containerMessageReceiver.setVisibility(View.GONE);
                 textMessageSender.setText(message.getMessageText());
                 textTimestampSender.setVisibility(View.VISIBLE);
                 textTimestampReceiver.setVisibility(View.GONE);
                 textTimestampSender.setText("Sent at " + message.getSentAt());
             } else {
-                textMessageSender.setVisibility(View.GONE);
-                textMessageReceiver.setVisibility(View.VISIBLE);
+                containerMessageSender.setVisibility(View.GONE);
+                containerMessageReceiver.setVisibility(View.VISIBLE);
                 textMessageReceiver.setText(message.getMessageText());
                 textTimestampSender.setVisibility(View.GONE);
                 textTimestampReceiver.setVisibility(View.VISIBLE);

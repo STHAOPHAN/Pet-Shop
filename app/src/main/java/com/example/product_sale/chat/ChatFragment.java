@@ -34,10 +34,7 @@ public class ChatFragment extends Fragment {
             if (isAdmin(currentUser)) {
                 getFragmentManager().beginTransaction().replace(R.id.chat_container, new ChatFragmentAdmin()).commit();
             } else {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("userId", "");
-                intent.putExtra("isUser", true);
-                startActivity(intent);
+                getFragmentManager().beginTransaction().replace(R.id.chat_container, new ChatFragmentUser()).commit();
             }
         }
         return root;
