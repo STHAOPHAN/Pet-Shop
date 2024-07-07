@@ -3,6 +3,9 @@ package com.example.product_sale.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 import java.util.List;
 
 public class Customer implements Parcelable {
@@ -16,6 +19,16 @@ public class Customer implements Parcelable {
     private List<Object> messageSenders;
     private List<Order> orders;
     private List<Sale> sales;
+    @SerializedName("lastMessageDate")
+    private String lastMessageDate;
+
+    public String getLastMessageDate() {
+        return lastMessageDate;
+    }
+
+    public void setLastMessageDate(String lastMessageDate) {
+        this.lastMessageDate = lastMessageDate;
+    }
 
     public Customer() {
     }

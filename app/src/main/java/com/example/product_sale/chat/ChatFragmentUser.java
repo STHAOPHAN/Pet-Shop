@@ -1,22 +1,29 @@
-package com.example.product_sale.activity;
+package com.example.product_sale.chat;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.product_sale.R;
+import com.example.product_sale.activity.ChatActivity;
+import com.example.product_sale.adapter.CustomerAdapter;
 import com.example.product_sale.adapter.MessageAdapter;
-import com.example.product_sale.models.Cart;
+import com.example.product_sale.databinding.FragmentChatAdminBinding;
+import com.example.product_sale.databinding.FragmentChatUserBinding;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Message;
 import com.example.product_sale.service.CustomerApiService;
@@ -29,54 +36,44 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatFragmentUser extends Fragment {
     private RecyclerView recyclerView;
     private EditText editTextMessage;
     private ImageButton buttonSendMessage;
     private DatabaseReference messagesRef;
     private FirebaseUser currentUser;
     private String userId;
-    private String fullName;
+    private boolean isUser;
     private List<Message> messageList;
     private MessageAdapter messageAdapter;
+    private FragmentChatUserBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        recyclerView = findViewById(R.id.chatRecyclerView);
-        editTextMessage = findViewById(R.id.messageEditText);
-        buttonSendMessage = findViewById(R.id.sendMessageButton);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        binding = FragmentChatUserBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        recyclerView = binding.chatRecyclerView;
+        editTextMessage = binding.messageEditText;
+        buttonSendMessage = binding.sendMessageButton;
 
-        userId = getIntent().getStringExtra("userId");
-        fullName = getIntent().getStringExtra("fullName");
-        if (userId == null || !isInteger(userId) || fullName == null) {
-            finish();
-            return;
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Chat with Pet Shop");
         }
-        this.getSupportActionBar().setTitle(fullName);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            finish();
-            return;
+            return root;
         }
-
         buttonSendMessage.setOnClickListener(v -> {
             String messageText = editTextMessage.getText().toString().trim();
             if (!messageText.isEmpty()) {
@@ -84,26 +81,38 @@ public class ChatActivity extends AppCompatActivity {
                 editTextMessage.setText("");
             }
         });
-        initializeFirebase();
+        callApiGetCustomerByEmail(currentUser.getEmail());
+        return root;
     }
 
-    public static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    private void callApiGetCustomerByEmail(String email) {
+        CustomerApiService customerApiService = CustomerApiService.retrofit.create(CustomerApiService.class);
+        customerApiService.getCustomers(email).enqueue(new Callback<List<Customer>>() {
+            @Override
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Customer customer = response.body().get(0);
+                    userId = String.valueOf(customer.getId());
+                    initializeFirebase();
+                } else {
+                    Toast.makeText(getActivity(), "Failed to get customer info", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
+                Log.e("API_ERROR", "Failure: " + t.getMessage());
+                Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initializeFirebase() {
-        runOnUiThread(() -> {
-            messagesRef = FirebaseDatabase.getInstance().getReference("messages").child(userId);
-            messageList = new ArrayList<>();
-            messageAdapter = new MessageAdapter(messageList, currentUser.getUid());
-            recyclerView.setAdapter(messageAdapter);
-            addFirebaseListener();
-        });
+        messagesRef = FirebaseDatabase.getInstance().getReference("messages").child(userId);
+        messageList = new ArrayList<>();
+        messageAdapter = new MessageAdapter(messageList, currentUser.getUid());
+        recyclerView.setAdapter(messageAdapter);
+        addFirebaseListener();
     }
 
     private void addFirebaseListener() {
@@ -140,30 +149,21 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+
     private void sendMessage(String messageText) {
         String messageId = messagesRef.push().getKey();
         if (messageId != null) {
-            Date currentTime = Calendar.getInstance().getTime();
+            Date currentDate = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
-            String formattedDateTime = formatter.format(currentTime);
+            String formattedDateTime = formatter.format(currentDate);
             Message message = new Message(messageId, currentUser.getUid(), messageText, formattedDateTime);
             messagesRef.child(messageId).setValue(message);
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_chat_admin, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_revert) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
