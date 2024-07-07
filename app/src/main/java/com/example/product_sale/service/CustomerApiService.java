@@ -28,6 +28,8 @@ public interface CustomerApiService {
 
     @GET("api/customers")
     Call<List<Customer>> getCustomers();
+    @GET("api/customers")
+    Call<List<Customer>> getCustomerByEmail(@Query("email") String email);
 
     @GET("api/customers")
     Call<List<Customer>> getCustomers(
@@ -42,4 +44,7 @@ public interface CustomerApiService {
 
     @PUT("api/customers/lastmessagedate/{id}")
     Call<Customer> updateLastMessageDate(@Path("id") int id, @Body String lastMessageDate);
+    
+    @PUT("api/customers/updateProfile/{id}")
+    Call<Customer> updateProfile(@Path("id") int id, @Body Customer customer);
 }
