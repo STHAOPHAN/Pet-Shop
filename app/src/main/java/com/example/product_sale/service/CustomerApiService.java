@@ -42,4 +42,7 @@ public interface CustomerApiService {
 
     @PUT("api/customers/updateProfile/{id}")
     Call<Customer> updateProfile(@Path("id") int id, @Body Customer customer);
+    @PUT("api/customers/changePassword")
+    Call<Customer> changePassword(@Query("email") String email, @Query("oldPass") String oldPass, @Query("newPass") String newPass);
+
 }
