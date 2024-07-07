@@ -34,4 +34,11 @@
         android:name="com.example.product_sale.account.ProfileFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_reset_password"
+        android:name="com.example.product_sale.account.ResetPasswordFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_reset_password" />
+
 </navigation>
