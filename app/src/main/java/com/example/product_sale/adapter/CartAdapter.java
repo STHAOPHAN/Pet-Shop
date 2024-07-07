@@ -1,5 +1,6 @@
     package com.example.product_sale.adapter;
 
+    import android.annotation.SuppressLint;
     import android.app.AlertDialog;
     import android.content.Context;
     import android.content.DialogInterface;
@@ -40,7 +41,7 @@
         }
 
         @Override
-        public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CartViewHolder holder, @SuppressLint("RecyclerView") int position) {
             CartItem cartItem = cartItems.get(position);
             if (cartItem == null) {
                 return;
@@ -50,7 +51,7 @@
             holder.tvPetName.setText(pet.getName());
             holder.tvPetColor.setText("Màu: " + pet.getColor());
             holder.tvPetPrice.setText("Giá: " + pet.getPrice() * cartItem.getQuantity());
-            holder.tvPetQuantity.setText("Số lượng: " + cartItem.getQuantity());
+            //holder.tvPetQuantity.setText("Số lượng: " + cartItem.getQuantity());
 
             int imageResId = context.getResources().getIdentifier(pet.getImage(), "drawable", context.getPackageName());
 
