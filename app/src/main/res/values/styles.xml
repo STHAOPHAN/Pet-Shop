@@ -378,4 +378,8 @@
 
     </style>
 
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateTint">@color/progress_bar_color</item>
+    </style>
+
 </resources>

@@ -54,4 +54,11 @@
     <color name="radiobuttonTint">#4353FA</color>
     <color name="scratch_start_gradient">#e5e5e5</color>
     <color name="scratch_end_gradient">#cccccc</color>
+
+    <color name="background_email_verification_color">#FFFFFF</color> <!-- White background -->
+    <color name="text_color_primary">#000000</color> <!-- Black text -->
+    <color name="text_color_secondary">#7E7E7E</color> <!-- Grey text -->
+    <color name="progress_bar_color">#3F51B5</color> <!-- Indigo -->
+    <color name="button_text_color">#FFFFFF</color> <!-- White text -->
+    <color name="button_background_color">#3F51B5</color> <!-- Indigo -->
 </resources>

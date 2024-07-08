@@ -10,37 +10,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import com.bumptech.glide.Glide;
 import com.example.product_sale.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.LoginActivity;
 import com.example.product_sale.models.Customer;
-import com.example.product_sale.models.Pet;
 import com.example.product_sale.service.CustomerApiService;
-import com.example.product_sale.service.PetApiService;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.List;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
 
     private EditText edtFirstName, edtMobileNo, edtEmail, edtAddress;
     private CircleImageView ivProfileImage;

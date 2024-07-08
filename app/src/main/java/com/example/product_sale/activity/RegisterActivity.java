@@ -127,11 +127,16 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Account Created.",
-                                        Toast.LENGTH_SHORT).show();
-                                callApiInsertCustomer(new Customer(fullName, password, email, phone, address));
+                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            sendEmailVerification(user, new Customer(fullName, password, email, phone, address));
+                                        }
+                                    }
+                                });
                             } else {
-                                // If sign in fails, display a message to the user.
                                 Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -140,41 +145,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    private void callApiInsertCustomer(Customer customer) {
-        CustomerApiService customerApiService = CustomerApiService.retrofit.create(CustomerApiService.class);
-        Call<Customer> call = customerApiService.createCustomer(customer);
-        call.enqueue(new Callback<Customer>() {
-            @Override
-            public void onResponse(Call<Customer> call, Response<Customer> response) {
-                if (response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    deleteFirebaseUser();
-                }
-            }
-            @Override
-            public void onFailure(Call<Customer> call, Throwable t) {
-                Log.e("API_ERROR", "Failure: " + t.getMessage());
-                Toast.makeText(RegisterActivity.this, "Network error", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void deleteFirebaseUser() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            user.delete()
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+    private void sendEmailVerification(FirebaseUser user, Customer customer) {
+        user.sendEmailVerification()
+            .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d("FIREBASE_USER", "User account deleted.");
-                    } else {
-                        Log.e("FIREBASE_USER", "Failed to delete user account.");
-                    }
+                    Intent intent = new Intent(RegisterActivity.this, EmailVerificationActivity.class);
+                    intent.putExtra("customer", customer);
+                    startActivity(intent);
+                    finish();
                 }
             });
-        }
     }
 }

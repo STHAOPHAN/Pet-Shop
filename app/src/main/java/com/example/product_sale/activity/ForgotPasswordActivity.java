@@ -12,7 +12,7 @@ import com.example.product_sale.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends BaseActivity {
     private TextInputEditText edtEmailForgot;
     private Button bthResetPassword;
     FirebaseAuth mAuth;

@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.product_sale.R;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.LoginActivity;
 import com.example.product_sale.databinding.FragmentAccountBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends BaseFragment {
     private FragmentAccountBinding binding;
 
     @Override
