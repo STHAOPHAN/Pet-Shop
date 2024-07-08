@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnSignIn;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView registerNow;
+    TextView registerNow, tvForget;
 
     @Override
     public void onStart() {
@@ -51,12 +51,20 @@ public class LoginActivity extends AppCompatActivity {
             btnSignIn = findViewById(R.id.btnSignIn);
             progressBar = findViewById(R.id.progressBar);
             registerNow = findViewById(R.id.btnSignUp);
+            tvForget = findViewById(R.id.tvForget);
             registerNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                     startActivity(intent);
                     finish();
+                }
+            });
+            tvForget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                    startActivity(intent);
                 }
             });
             btnSignIn.setOnClickListener(new View.OnClickListener() {

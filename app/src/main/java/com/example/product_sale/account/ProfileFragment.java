@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import com.bumptech.glide.Glide;
 import com.example.product_sale.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -25,7 +30,6 @@ import com.example.product_sale.service.CustomerApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.List;
 
 public class ProfileFragment extends BaseFragment {
@@ -164,9 +168,9 @@ public class ProfileFragment extends BaseFragment {
         });
     }
 
-
     private void changePassword() {
-        // Thực hiện thay đổi mật khẩu
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
+        navController.navigate(R.id.navigation_reset_password);
     }
 
 

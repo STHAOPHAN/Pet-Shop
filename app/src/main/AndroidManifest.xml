@@ -56,7 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".activity.CartActivity"></activity>
+
+        <activity android:name=".activity.CartActivity"/>
+        <activity android:name=".activity.ForgotPasswordActivity"/>
         <activity android:name=".activity.ChatActivity"></activity>
         <activity android:name=".activity.EmailVerificationActivity"></activity>
 
