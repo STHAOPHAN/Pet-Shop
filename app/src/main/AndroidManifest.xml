@@ -58,5 +58,7 @@
         </activity>
         <activity android:name=".activity.CartActivity"></activity>
         <activity android:name=".activity.ChatActivity"></activity>
+        <activity android:name=".activity.EmailVerificationActivity"></activity>
+
     </application>
 </manifest>

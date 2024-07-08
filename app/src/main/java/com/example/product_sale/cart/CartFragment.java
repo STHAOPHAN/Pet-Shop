@@ -9,29 +9,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.product_sale.R;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.adapter.CartAdapter;
 import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.CartItem;
 import com.example.product_sale.models.Request.OrderModel;
 import com.example.product_sale.service.OrderApiService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends BaseFragment {
     private RecyclerView rvCart;
     private CartAdapter cartAdapter;
     private TextView tvTotalPrice;

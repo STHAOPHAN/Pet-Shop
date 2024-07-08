@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.product_sale.R;
 import com.example.product_sale.cart.CartFragment;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

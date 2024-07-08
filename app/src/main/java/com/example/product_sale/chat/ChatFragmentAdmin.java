@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.ChatActivity;
 import com.example.product_sale.adapter.CustomerAdapter;
 import com.example.product_sale.databinding.FragmentChatAdminBinding;
@@ -43,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatFragmentAdmin extends Fragment {
+public class ChatFragmentAdmin extends BaseFragment {
     private RecyclerView userRecyclerView;
     private CustomerAdapter customerAdapter;
     private List<Customer> userList;
@@ -73,6 +74,9 @@ public class ChatFragmentAdmin extends Fragment {
                 if (response.isSuccessful()) {
                     userList.clear(); // Xóa danh sách cũ
                     userList.addAll(response.body()); // Thêm danh sách mới từ response
+                    for (Customer user : userList){
+                        if (user.getEmail().equals("thaopsse162032@fpt.edu.vn")) userList.remove(user);
+                    }
                     //customerAdapter.notifyDataSetChanged(); // Cập nhật RecyclerView
                     fetchLatestMessages();
                 } else {
@@ -89,35 +93,48 @@ public class ChatFragmentAdmin extends Fragment {
 
     private void fetchLatestMessages() {
         customerLastMessageMap.clear();
-        for (Customer customer : userList) {
-            DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("messages").child(String.valueOf(customer.getId()));
-            Query lastMessageQuery = messagesRef.orderByKey().limitToLast(1);
-            lastMessageQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Message message = snapshot.getValue(Message.class);
-                        if (message != null) {
-                            Date date = null;
-                            try {
-                                date = inputFormat.parse(message.getSentAt());
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
+        DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("messages");
+        messagesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot customerSnapshot : dataSnapshot.getChildren()) {
+                    String customerId = customerSnapshot.getKey();
+                    if (customerId != null) {
+                        Query lastMessageQuery = messagesRef.child(customerId).orderByKey().limitToLast(1);
+                        lastMessageQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
+                                    Message message = messageSnapshot.getValue(Message.class);
+                                    if (message != null) {
+                                        Date date = null;
+                                        try {
+                                            date = inputFormat.parse(message.getSentAt());
+                                        } catch (ParseException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        String formattedDate = outputFormat.format(date);
+                                        updateLastMessageDate(Integer.parseInt(customerId), formattedDate);
+                                        customerLastMessageMap.put(Integer.parseInt(customerId), message);
+                                    }
+                                }
+                                sortUserList();
                             }
-                            String formattedDate = outputFormat.format(date);
-                            updateLastMessageDate(customer.getId(), formattedDate);
-                        }
-                        customerLastMessageMap.put(customer.getId(), message);
-                    }
-                    sortUserList();
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e("FIREBASE_ERROR", "Failed to fetch last message: " + databaseError.getMessage());
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e("FIREBASE_ERROR", "Failed to fetch last message: " + databaseError.getMessage());
+                            }
+                        });
+                    }
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FIREBASE_ERROR", "Failed to fetch messages: " + databaseError.getMessage());
+            }
+        });
     }
 
     private void setupRecyclerView() {

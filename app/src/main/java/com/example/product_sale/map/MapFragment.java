@@ -14,19 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 import com.example.product_sale.R;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.databinding.FragmentMapBinding;
 import com.example.product_sale.models.ShopLocation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
@@ -39,31 +37,22 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 import com.mapbox.maps.plugin.gestures.OnMoveListener;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MapFragment extends Fragment {
-    private static final int REQUEST_CODE_SHOP_LOCATION = 1001;
+public class MapFragment extends BaseFragment {
     private FragmentMapBinding binding;
     private MapView mapView;
-
     private MapboxMap mapboxMap;
-    private PermissionsManager permissionsManager;
-
     private FloatingActionButton floatingActionButton;
     private Point markedLocation;
     private static final double CUSTOM_LATITUDE = 10.7527936;
     private static final double CUSTOM_LONGITUDE = 106.6698121;
-    private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-        @Override
-        public void onActivityResult(Boolean result) {
-            if (result){
-                Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Permission not granted", Toast.LENGTH_SHORT).show();
-            }
+    private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+        if (result){
+            Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Permission not granted", Toast.LENGTH_SHORT).show();
         }
     });
 
@@ -154,34 +143,11 @@ public class MapFragment extends Fragment {
                 .build());
         floatingActionButton.hide();
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        mapView.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mapView.onStop();
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
     }
 
     @Override

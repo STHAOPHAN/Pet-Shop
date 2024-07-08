@@ -5,10 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.databinding.FragmentNotificationsBinding;
 
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends BaseFragment {
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

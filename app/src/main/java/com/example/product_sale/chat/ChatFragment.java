@@ -1,22 +1,17 @@
 package com.example.product_sale.chat;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.product_sale.R;
-import com.example.product_sale.activity.ChatActivity;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.databinding.FragmentChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends BaseFragment {
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
     private FragmentChatBinding binding;
@@ -41,7 +36,7 @@ public class ChatFragment extends Fragment {
     }
 
     private boolean isAdmin(FirebaseUser user) {
-        if (user.getEmail().equals("admin@gmail.com")) return true;
+        if (user.getEmail().equals("thaopsse162032@fpt.edu.vn")) return true;
         else return false;
     }
     @Override

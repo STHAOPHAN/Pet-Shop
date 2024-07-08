@@ -1,8 +1,6 @@
 package com.example.product_sale.chat;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +8,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.product_sale.R;
-import com.example.product_sale.activity.ChatActivity;
-import com.example.product_sale.adapter.CustomerAdapter;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.adapter.MessageAdapter;
-import com.example.product_sale.databinding.FragmentChatAdminBinding;
 import com.example.product_sale.databinding.FragmentChatUserBinding;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Message;
@@ -34,17 +26,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatFragmentUser extends Fragment {
+public class ChatFragmentUser extends BaseFragment {
     private RecyclerView recyclerView;
     private EditText editTextMessage;
     private ImageButton buttonSendMessage;

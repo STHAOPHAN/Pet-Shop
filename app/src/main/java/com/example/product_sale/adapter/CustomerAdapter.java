@@ -73,7 +73,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.UserVi
                 holder.latestMessageTextView.setText("You: "+trimStringTo40Chars(customerLastMessageMap.get(customer.getId()).getMessageText())+" · "+timeDifference);
             }
             else {
-                holder.latestMessageTextView.setText("Customer:"+trimStringTo40Chars(customerLastMessageMap.get(customer.getId()).getMessageText())+"·"+timeDifference);
+                holder.latestMessageTextView.setText("Customer: "+trimStringTo40Chars(customerLastMessageMap.get(customer.getId()).getMessageText())+" · "+timeDifference);
             }
         }
 

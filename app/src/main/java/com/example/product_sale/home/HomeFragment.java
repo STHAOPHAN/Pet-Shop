@@ -16,18 +16,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.product_sale.R;
+import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.CartActivity;
-import com.example.product_sale.activity.HomeActivity;
-import com.example.product_sale.activity.LoginActivity;
 import com.example.product_sale.adapter.PetAdapter;
 import com.example.product_sale.databinding.FragmentHomeBinding;
 import com.example.product_sale.models.Cart;
@@ -35,18 +31,14 @@ import com.example.product_sale.models.Pet;
 import com.example.product_sale.models.PetType;
 import com.example.product_sale.service.PetApiService;
 import com.example.product_sale.service.PetTypeApiService;
-import com.example.product_sale.utils.MyDatabaseHelper;
-import com.google.firebase.auth.FirebaseAuth;
 import android.graphics.Color;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private FragmentHomeBinding binding;
     private PetAdapter petAdapter;

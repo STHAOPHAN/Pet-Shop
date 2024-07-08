@@ -12,7 +12,7 @@ import com.example.product_sale.R;
 import com.example.product_sale.models.Pet;
 import com.squareup.picasso.Picasso;
 
-public class PetDetailActivity extends AppCompatActivity {
+public class PetDetailActivity extends BaseActivity {
     private ImageView ivPetImage;
     private TextView tvPetId, tvPetName, tvPetBreed, tvPetColor, tvPetPrice, tvPetAge, tvPetGender;  // Add TextView for gender
 

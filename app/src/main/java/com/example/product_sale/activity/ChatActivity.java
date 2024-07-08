@@ -42,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private EditText editTextMessage;
     private ImageButton buttonSendMessage;
