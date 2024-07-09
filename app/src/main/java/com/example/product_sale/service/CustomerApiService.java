@@ -1,5 +1,6 @@
 package com.example.product_sale.service;
 
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Pet;
 import com.google.gson.Gson;
@@ -21,7 +22,7 @@ import retrofit2.http.Query;
 
 public interface CustomerApiService {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl(AppConfig.DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
                     .create()))
             .build();
