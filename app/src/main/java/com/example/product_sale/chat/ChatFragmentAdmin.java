@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.ChatActivity;
 import com.example.product_sale.adapter.CustomerAdapter;
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.databinding.FragmentChatAdminBinding;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.models.Message;
+import com.example.product_sale.service.ApiCallback;
 import com.example.product_sale.service.CustomerApiService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,8 +39,11 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,11 +67,16 @@ public class ChatFragmentAdmin extends BaseFragment {
         View root = binding.getRoot();
         userList = new ArrayList<>();
         filteredUserList = new ArrayList<>();
-        callApiGetCustomers();
+        callApiGetCustomers(new ApiCallback() {
+            @Override
+            public void onComplete() {
+                setupRecyclerView();
+            }
+        });
         return root;
     }
 
-    private void callApiGetCustomers() {
+    private void callApiGetCustomers(ApiCallback callback) {
         CustomerApiService customerApiService = CustomerApiService.retrofit.create(CustomerApiService.class);
         customerApiService.getCustomers().enqueue(new Callback<List<Customer>>() {
             @Override
@@ -74,19 +84,26 @@ public class ChatFragmentAdmin extends BaseFragment {
                 if (response.isSuccessful()) {
                     userList.clear(); // Xóa danh sách cũ
                     userList.addAll(response.body()); // Thêm danh sách mới từ response
-                    for (Customer user : userList){
-                        if (user.getEmail().equals("thaopsse162032@fpt.edu.vn")) userList.remove(user);
+                    Iterator<Customer> iterator = userList.iterator();
+                    while (iterator.hasNext()) {
+                        Customer user = iterator.next();
+                        if (user.getEmail().equals(AppConfig.EMAIL_ADMIN)) {
+                            iterator.remove();
+                        }
                     }
                     //customerAdapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+                    callback.onComplete();
                     fetchLatestMessages();
                 } else {
                     Toast.makeText(getActivity(), "Failed to get customers", Toast.LENGTH_SHORT).show();
+                    callback.onComplete();
                 }
             }
             @Override
             public void onFailure(Call<List<Customer>> call, Throwable t) {
                 Log.e("API_ERROR", "Failure: " + t.getMessage());
                 Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
+                callback.onComplete();
             }
         });
     }
@@ -200,21 +217,22 @@ public class ChatFragmentAdmin extends BaseFragment {
                 }
             }
         });
-        setupRecyclerView();
         customerAdapter.notifyDataSetChanged();
     }
 
     private void filterUsers(String query) {
         filteredUserList.clear();
-        Map<Integer, Message> customerLastMessageMap2 = customerLastMessageMap;
+        Map<Integer, Message> filteredLastMessageMap = new HashMap<>(customerLastMessageMap);
         for (Customer user : userList) {
-            if (user.getFullName().toLowerCase().contains(query.toLowerCase()) ||user.getEmail().toLowerCase().contains(query.toLowerCase()) || ("" + user.getId()).contains(query.toLowerCase())) {
+            if (user.getFullName().toLowerCase().contains(query.toLowerCase()) ||
+                    user.getEmail().toLowerCase().contains(query.toLowerCase()) ||
+                    ("" + user.getId()).contains(query.toLowerCase())) {
                 filteredUserList.add(user);
+            } else {
+                filteredLastMessageMap.remove(user.getId());
             }
-            customerLastMessageMap2.remove(user.getId());
         }
-
-        customerAdapter = new CustomerAdapter(filteredUserList, customerLastMessageMap2, this::openChatWithUser);
+        customerAdapter = new CustomerAdapter(filteredUserList, filteredLastMessageMap, this::openChatWithUser);
         userRecyclerView.setAdapter(customerAdapter);
         customerAdapter.notifyDataSetChanged();
     }
@@ -224,6 +242,17 @@ public class ChatFragmentAdmin extends BaseFragment {
         intent.putExtra("userId", ""+user.getId());
         intent.putExtra("fullName", ""+user.getFullName());
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callApiGetCustomers(new ApiCallback() {
+            @Override
+            public void onComplete() {
+                setupRecyclerView();
+            }
+        });
     }
 
     @Override

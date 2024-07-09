@@ -1,5 +1,6 @@
 package com.example.product_sale.service;
 
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.Request.LoginModel;
 import com.example.product_sale.models.Respone.LoginResponse;
 
@@ -11,7 +12,7 @@ import retrofit2.http.POST;
 
 public interface AuthenticateApiService {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl(AppConfig.DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @POST("api/authenticate/login")
