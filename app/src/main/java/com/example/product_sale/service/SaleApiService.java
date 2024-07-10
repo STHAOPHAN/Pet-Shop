@@ -13,6 +13,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 public interface SaleApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(AppConfig.DATABASE_URL)
@@ -27,4 +29,19 @@ public interface SaleApiService {
 
     @PUT("api/sales/{id}")
     Call<Sale> updateSale(@Path("id") int id, @Body Sale sale);
+
+    @GET("api/sales/qr")
+    Call<QRCodeResponse> createQRCode(@Query("orderId") int orderId);
+
+    class QRCodeResponse {
+        private String qrDataURL;
+
+        public String getQrDataURL() {
+            return qrDataURL;
+        }
+
+        public void setQrDataURL(String qrDataURL) {
+            this.qrDataURL = qrDataURL;
+        }
+    }
 }
