@@ -4,6 +4,7 @@ import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.Pet;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -15,6 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface PetApiService {
 
@@ -34,7 +36,6 @@ public interface PetApiService {
     @DELETE("api/pets/{id}")
     Call<Void> deletePet(@Path("id") int id);
 
-    // If you need to get a single pet by ID, you can add this method:
-    @GET("api/pets/{id}")
-    Call<Pet> getPetById(@Path("id") int id);
+    @GET("api/pets")
+    Call<List<Pet>> getPetsByIds(@QueryMap Map<String, Object> options);
 }
