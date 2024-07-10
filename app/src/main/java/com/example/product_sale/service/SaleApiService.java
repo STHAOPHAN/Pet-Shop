@@ -1,4 +1,5 @@
 package com.example.product_sale.service;
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.Sale;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 public interface SaleApiService {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl(AppConfig.DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -26,4 +29,19 @@ public interface SaleApiService {
 
     @PUT("api/sales/{id}")
     Call<Sale> updateSale(@Path("id") int id, @Body Sale sale);
+
+    @GET("api/sales/qr")
+    Call<QRCodeResponse> createQRCode(@Query("orderId") int orderId);
+
+    class QRCodeResponse {
+        private String qrDataURL;
+
+        public String getQrDataURL() {
+            return qrDataURL;
+        }
+
+        public void setQrDataURL(String qrDataURL) {
+            this.qrDataURL = qrDataURL;
+        }
+    }
 }

@@ -1,23 +1,23 @@
 package com.example.product_sale.models;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class Sale {
     private int id;
-    private int animalId;
+    private int petId;
     private int customerId;
-    private Date saleDate;
+    private String saleDate; // Changed type to String
     private BigDecimal salePrice;
 
-    public Sale(int id, int animalId, int customerId, Date saleDate, BigDecimal salePrice) {
+    public Sale(int id, int petId, int customerId, String saleDate, BigDecimal salePrice) {
         this.id = id;
-        this.animalId = animalId;
+        this.petId = petId;
         this.customerId = customerId;
         this.saleDate = saleDate;
         this.salePrice = salePrice;
     }
-    // Getters và Setters
+
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -28,11 +28,11 @@ public class Sale {
     }
 
     public int getAnimalId() {
-        return animalId;
+        return petId;
     }
 
     public void setAnimalId(int animalId) {
-        this.animalId = animalId;
+        this.petId = animalId;
     }
 
     public int getCustomerId() {
@@ -43,11 +43,11 @@ public class Sale {
         this.customerId = customerId;
     }
 
-    public Date getSaleDate() {
+    public String getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(Date saleDate) {
+    public void setSaleDate(String saleDate) {
         this.saleDate = saleDate;
     }
 
@@ -59,4 +59,3 @@ public class Sale {
         this.salePrice = salePrice;
     }
 }
-

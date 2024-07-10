@@ -1,5 +1,6 @@
 package com.example.product_sale.service;
 
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.Messages;
 import java.util.List;
 import retrofit2.Call;
@@ -12,7 +13,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 public interface MessageApiService {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl(AppConfig.DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/messages")
