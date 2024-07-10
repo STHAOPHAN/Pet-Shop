@@ -6,13 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.product_sale.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivity extends BaseActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
     private TextInputEditText edtEmailForgot;
     private Button bthResetPassword;
     FirebaseAuth mAuth;
@@ -21,6 +22,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgot_password);
 
         edtEmailForgot = findViewById(R.id.edtEmailForgot);
