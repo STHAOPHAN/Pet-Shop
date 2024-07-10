@@ -2,12 +2,11 @@ package com.example.product_sale.models;
 
 public class OrderPet {
     private int orderId;
-    private int animalId;
+    private int petId;
     private int quantity;
-
-    public OrderPet(int orderId, int animalId, int quantity) {
+    public OrderPet(int orderId, int petId, int quantity) {
         this.orderId = orderId;
-        this.animalId = animalId;
+        this.petId = petId;
         this.quantity = quantity;
     }
     // Getters và Setters
@@ -21,11 +20,11 @@ public class OrderPet {
     }
 
     public int getAnimalId() {
-        return animalId;
+        return petId;
     }
 
     public void setAnimalId(int animalId) {
-        this.animalId = animalId;
+        this.petId = animalId;
     }
 
     public int getQuantity() {

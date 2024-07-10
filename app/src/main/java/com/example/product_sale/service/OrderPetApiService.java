@@ -12,13 +12,15 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 public interface OrderPetApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/orderpets")
-    Call<List<OrderPet>> getOrderPets();
+    Call<List<OrderPet>> getOrderPets(@Query("orderId") int orderId);
 
     @POST("api/orderpets")
     Call<OrderPet> createOrderPet(@Body OrderPet orderPet);
