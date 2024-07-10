@@ -151,13 +151,20 @@ public class HomeFragment extends BaseFragment {
         if (petType != null && (petType.isEmpty() || petType.equals("Chọn loại"))) {
             petType = null;
         }
+        List<Pet> listPet = new ArrayList<>();
         PetApiService petApiService = PetApiService.retrofit.create(PetApiService.class);
         petApiService.getPets(petType, breed).enqueue(new Callback<List<Pet>>() {
             @Override
             public void onResponse(Call<List<Pet>> call, Response<List<Pet>> response) {
                 if (response.isSuccessful()) {
                     mListPet.clear();
-                    mListPet.addAll(response.body());
+                    listPet.clear();
+                    listPet.addAll(response.body());
+                    for (Pet pet:listPet){
+                        if(pet.isAvailable()){
+                            mListPet.add(pet);
+                        }
+                    }
                     petAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Failed to get pets", Toast.LENGTH_SHORT).show();
