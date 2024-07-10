@@ -15,6 +15,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 public interface OrderApiService {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(AppConfig.DATABASE_URL)
@@ -32,5 +34,8 @@ public interface OrderApiService {
     @DELETE("api/orders/{id}")
     Call<Void> deleteOrder(@Path("id") int id);
     @POST("api/orders/checkout")
-    Call<Void> checkoutOrder(@Body OrderModel orderModel);
+    Call<Order> checkoutOrder(@Body OrderModel orderModel);
+
+    @GET("api/orders")
+    Call<List<Order>> getOrderById(@Query("id") int id);
 }
