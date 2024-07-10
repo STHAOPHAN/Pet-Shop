@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".activity.OrderActivity"
+            android:name=".activity.LoginActivity"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -57,6 +57,7 @@
             </intent-filter>-->
         </activity>
         <activity android:name=".activity.OrderPetActivity" />
+        <activity android:name=".activity.OrderActivity" />
         <activity android:name=".activity.CartActivity"/>
         <activity android:name=".activity.ForgotPasswordActivity"/>
         <activity android:name=".activity.ChatActivity"></activity>
