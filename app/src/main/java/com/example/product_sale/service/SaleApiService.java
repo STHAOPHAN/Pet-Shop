@@ -27,4 +27,7 @@ public interface SaleApiService {
 
     @PUT("api/sales/{id}")
     Call<Sale> updateSale(@Path("id") int id, @Body Sale sale);
+
+    @GET("api/sales/{id}")
+    Call<Sale> getSaleById(@Path("id") int id);
 }
