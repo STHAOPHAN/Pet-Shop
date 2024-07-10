@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.product_sale.R;
 import com.example.product_sale.activity.BaseFragment;
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.databinding.FragmentChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +37,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     private boolean isAdmin(FirebaseUser user) {
-        if (user.getEmail().equals("thaopsse162032@fpt.edu.vn")) return true;
+        if (user.getEmail().equals(AppConfig.EMAIL_ADMIN)) return true;
         else return false;
     }
     @Override

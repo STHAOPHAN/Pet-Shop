@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".activity.OrderActivity"
+            android:name=".activity.LoginActivity"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -64,6 +64,18 @@
             android:name=".activity.EmailVerificationActivity"
             android:theme="@style/Theme.Material3.Light.NoActionBar">
         </activity>
+        <activity
+            android:name=".activity.QRCodeActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.CartActivity"/>
+        <activity android:name=".activity.ForgotPasswordActivity"/>
+
 
     </application>
 </manifest>

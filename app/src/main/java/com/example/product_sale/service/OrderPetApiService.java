@@ -1,4 +1,5 @@
 package com.example.product_sale.service;
+import com.example.product_sale.config.AppConfig;
 import com.example.product_sale.models.OrderPet;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import retrofit2.http.Query;
 
 public interface OrderPetApiService {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://petshopapi-env.eba-xz2mv5rq.ap-southeast-1.elasticbeanstalk.com/")
+            .baseUrl(AppConfig.DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/orderpets")
