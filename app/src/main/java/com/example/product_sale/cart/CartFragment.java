@@ -1,6 +1,7 @@
 package com.example.product_sale.cart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,11 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.R;
 import com.example.product_sale.activity.BaseFragment;
+import com.example.product_sale.activity.LoginActivity;
+import com.example.product_sale.activity.QRCodeActivity;
 import com.example.product_sale.adapter.CartAdapter;
 import com.example.product_sale.models.Cart;
 import com.example.product_sale.models.CartItem;
+import com.example.product_sale.models.Order;
 import com.example.product_sale.models.Request.OrderModel;
 import com.example.product_sale.service.OrderApiService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -62,6 +69,7 @@ public class CartFragment extends BaseFragment {
         return root;
     }
 
+
     private void checkoutOrder() {
         OrderApiService orderApiService = OrderApiService.retrofit.create(OrderApiService.class);
         double totalPrice = Cart.getInstance().getTotalPrice();
@@ -69,18 +77,32 @@ public class CartFragment extends BaseFragment {
         for (CartItem item : Cart.getInstance().getCartItems()) {
             petIds.add(item.getPet().getId());
         }
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user= auth.getCurrentUser();
+        if (user == null){
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+        String emailUser = user.getEmail();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        OrderModel orderModel = new OrderModel(sharedPreferences.getString("Email", ""), totalPrice, petIds);
-        orderApiService.checkoutOrder(orderModel).enqueue(new Callback<Void>() {
+        OrderModel orderModel = new OrderModel(sharedPreferences.getString("Email", emailUser), totalPrice, petIds);
+        orderApiService.checkoutOrder(orderModel).enqueue(new Callback<Order>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Order> call, Response<Order> response) {
                 Toast.makeText(getContext(), "Checkout successful", Toast.LENGTH_SHORT).show();
                 Cart.getInstance().clear();
                 cartAdapter.notifyDataSetChanged();
+
+                // Chuyển đến QRCodeActivity và truyền orderId
+                Order newOrder = new Order();
+                newOrder = response.body();
+                Intent intent = new Intent(getActivity(), QRCodeActivity.class);
+                intent.putExtra("orderId", newOrder.getId());
+                startActivity(intent);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Order> call, Throwable t) {
                 Toast.makeText(getContext(), "Checkout failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

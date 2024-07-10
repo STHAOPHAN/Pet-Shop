@@ -10,6 +10,9 @@ public class Order {
     private BigDecimal totalPrice;
     private String status;
 
+    public Order() {
+    }
+
     public Order(int id, int customerId, String orderDate, BigDecimal totalPrice, String status) {
         this.id = id;
         this.customerId = customerId;

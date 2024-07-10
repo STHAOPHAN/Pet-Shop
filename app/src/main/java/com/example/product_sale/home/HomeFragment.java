@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.R;
 import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.CartActivity;
+import com.example.product_sale.activity.OrderActivity;
 import com.example.product_sale.adapter.PetAdapter;
 import com.example.product_sale.databinding.FragmentHomeBinding;
 import com.example.product_sale.models.Cart;
@@ -194,7 +195,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_home_cart) {
-            Intent intent = new Intent(getActivity(), CartActivity.class);
+            Intent intent = new Intent(getActivity(), OrderActivity.class);
             intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(Cart.getInstance().getCartItems()));
             startActivity(intent);
             return true;
