@@ -38,7 +38,14 @@ public class OrderPetAdapter extends RecyclerView.Adapter<OrderPetAdapter.OrderP
         Pet pet = petList.get(position);
         holder.tvPetName.setText(pet.getName());
         holder.tvPetPrice.setText(String.valueOf(pet.getPrice()));
-        Picasso.get().load(pet.getImage()).into(holder.ivPetImage);
+
+        // Load image using Picasso
+        String imagePath = "android.resource://" + context.getPackageName() + "/drawable/" + pet.getImage();
+        Picasso.get()
+                .load(imagePath)
+                .placeholder(R.drawable.ic_launcher_background)  // Placeholder image
+                .error(R.drawable.ic_delete)        // Error image if loading fails
+                .into(holder.ivPetImage);
     }
 
     @Override
