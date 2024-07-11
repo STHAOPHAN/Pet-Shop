@@ -1,19 +1,38 @@
 package com.example.product_sale.models;
 
+import java.util.Date;
+
 public class Message {
-    private String text;
-    private boolean isUser;
+    private String messageId;
+    private String senderId;
+    private String messageText;
+    private String sentAt;
 
-    public Message(String text, boolean isUser) {
-        this.text = text;
-        this.isUser = isUser;
+    public Message() {
     }
 
-    public String getText() {
-        return text;
+    public Message(String messageId, String senderId, String messageText, String sentAt) {
+        this.messageId = messageId;
+        this.senderId = senderId;
+        this.messageText = messageText;
+        this.sentAt = sentAt;
     }
 
-    public boolean isUser() {
-        return isUser;
+    // Getter methods
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public String getMessageText() {
+        return messageText;
+    }
+
+    public String getSentAt() {
+        return sentAt;
     }
 }

@@ -1,22 +1,47 @@
 package com.example.product_sale.models;
 
-public class PetType {
-    private int type_id;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PetType implements Parcelable {
+    private int id;
     private String name;
-    private String description;
+    private List<Pet> pets;
 
-    public PetType(int type_id, String name, String description) {
-        this.type_id = type_id;
-        this.name = name;
-        this.description = description;
+    public PetType() {
+        pets = new ArrayList<>();
     }
 
-    public int getType_id() {
-        return type_id;
+    protected PetType(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        pets = new ArrayList<>();
+        in.readList(pets, Pet.class.getClassLoader());
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public static final Creator<PetType> CREATOR = new Creator<PetType>() {
+        @Override
+        public PetType createFromParcel(Parcel in) {
+            return new PetType(in);
+        }
+
+        @Override
+        public PetType[] newArray(int size) {
+            return new PetType[size];
+        }
+    };
+
+    // Getters and setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -27,11 +52,23 @@ public class PetType {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public List<Pet> getPets() {
+        return pets;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeList(pets);
     }
 }

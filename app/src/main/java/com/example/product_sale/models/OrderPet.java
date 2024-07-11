@@ -1,30 +1,30 @@
 package com.example.product_sale.models;
 
 public class OrderPet {
-    private int order_id;
-    private int pet_id;
+    private int orderId;
+    private int petId;
     private int quantity;
-
-    public OrderPet(int order_id, int pet_id, int quantity) {
-        this.order_id = order_id;
-        this.pet_id = pet_id;
+    public OrderPet(int orderId, int petId, int quantity) {
+        this.orderId = orderId;
+        this.petId = petId;
         this.quantity = quantity;
     }
+    // Getters và Setters
 
-    public int getOrder_id() {
-        return order_id;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
-    public int getPet_id() {
-        return pet_id;
+    public int getAnimalId() {
+        return petId;
     }
 
-    public void setPet_id(int pet_id) {
-        this.pet_id = pet_id;
+    public void setAnimalId(int animalId) {
+        this.petId = animalId;
     }
 
     public int getQuantity() {
