@@ -36,8 +36,10 @@ public class OrderPetAdapter extends RecyclerView.Adapter<OrderPetAdapter.OrderP
     @Override
     public void onBindViewHolder(@NonNull OrderPetViewHolder holder, int position) {
         Pet pet = petList.get(position);
-        holder.tvPetName.setText(pet.getName());
-        holder.tvPetPrice.setText(String.valueOf(pet.getPrice()));
+        holder.tvPetName.setText("Tên: " +pet.getName());
+        holder.tvPetColor.setText("Màu: " +pet.getColor());
+        holder.tvPetBreed.setText("Giống loài: " + pet.getBreed());
+        holder.tvPetPrice.setText("Giá: " +String.valueOf(pet.getPrice()) + " VND");
 
         // Load image using Picasso
         String imagePath = "android.resource://" + context.getPackageName() + "/drawable/" + pet.getImage();
@@ -60,13 +62,15 @@ public class OrderPetAdapter extends RecyclerView.Adapter<OrderPetAdapter.OrderP
 
     public static class OrderPetViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPetImage;
-        TextView tvPetName, tvPetPrice;
+        TextView tvPetName, tvPetPrice, tvPetColor, tvPetBreed;
 
         public OrderPetViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPetImage = itemView.findViewById(R.id.iv_pet);
             tvPetName = itemView.findViewById(R.id.tv_pet_name);
             tvPetPrice = itemView.findViewById(R.id.tv_pet_price);
+            tvPetColor = itemView.findViewById(R.id.tv_pet_color);
+            tvPetBreed = itemView.findViewById(R.id.tv_pet_breed);
         }
     }
 }

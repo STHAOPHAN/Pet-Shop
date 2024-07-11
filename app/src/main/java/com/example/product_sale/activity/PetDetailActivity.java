@@ -42,7 +42,7 @@ public class PetDetailActivity extends BaseActivity {
             tvPetName.setText("Tên: " +pet.getName());
             tvPetBreed.setText("Giống loài: " + pet.getBreed());  // Set breed text
             tvPetColor.setText("Màu: " + pet.getColor());
-            tvPetPrice.setText("Price: $" + pet.getPrice());
+            tvPetPrice.setText("Giá tiền: $" + pet.getPrice());
             tvPetAge.setText("Tuổi: " + pet.getAge());  // Set age text
             tvPetGender.setText("Giới tính: " + pet.getGender());  // Set gender text
 
