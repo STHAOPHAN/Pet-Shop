@@ -50,8 +50,7 @@
 
             holder.tvPetName.setText(pet.getName());
             holder.tvPetColor.setText("Màu: " + pet.getColor());
-            holder.tvPetPrice.setText("Giá: " + pet.getPrice() * cartItem.getQuantity());
-            //holder.tvPetQuantity.setText("Số lượng: " + cartItem.getQuantity());
+            holder.tvPetPrice.setText("Giá: " + pet.getPrice());
 
             int imageResId = context.getResources().getIdentifier(pet.getImage(), "drawable", context.getPackageName());
 
@@ -110,7 +109,6 @@
                 tvPetName = itemView.findViewById(R.id.tv_pet_name);
                 tvPetColor = itemView.findViewById(R.id.tv_pet_color);
                 tvPetPrice = itemView.findViewById(R.id.tv_pet_price);
-                tvPetQuantity = itemView.findViewById(R.id.tv_pet_quantity);
                 btnRemove = itemView.findViewById(R.id.btn_remove);
             }
         }
