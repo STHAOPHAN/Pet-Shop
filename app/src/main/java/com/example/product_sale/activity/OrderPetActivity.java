@@ -2,6 +2,9 @@ package com.example.product_sale.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -32,16 +35,15 @@ public class OrderPetActivity extends AppCompatActivity {
     private RecyclerView rvOrderPets;
     private OrderPetAdapter orderPetAdapter;
     private List<OrderPet> orderPetList;
-    private ImageButton btnBack;
     private List<Pet> petList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_pet);
+        this.getSupportActionBar().setTitle("Order Pet");
 
         rvOrderPets = findViewById(R.id.rv_order_pets);
-        btnBack = findViewById(R.id.btn_back);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvOrderPets.setLayoutManager(layoutManager);
@@ -51,13 +53,6 @@ public class OrderPetActivity extends AppCompatActivity {
 
         orderPetAdapter = new OrderPetAdapter(this, petList);
         rvOrderPets.setAdapter(orderPetAdapter);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         // Get orderId from intent
         int orderId = getIntent().getIntExtra("orderId", -1); // -1 is default value if not found
@@ -120,6 +115,22 @@ public class OrderPetActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_chat_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_revert) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

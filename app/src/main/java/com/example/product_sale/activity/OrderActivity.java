@@ -2,6 +2,9 @@ package com.example.product_sale.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -29,15 +32,13 @@ public class OrderActivity extends AppCompatActivity {
     private OrderAdapter orderAdapter;
 
     private List<Order> orderList;
-    private ImageButton btnBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
+        this.getSupportActionBar().setTitle("List Orders");
         rvOrders = findViewById(R.id.rv_orders);
-        btnBack = findViewById(R.id.btn_back);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvOrders.setLayoutManager(layoutManager);
@@ -48,13 +49,6 @@ public class OrderActivity extends AppCompatActivity {
         orderList = new ArrayList<>();
         orderAdapter = new OrderAdapter(this, orderList);
         rvOrders.setAdapter(orderAdapter);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         callApiGetOrders();
     }
@@ -79,5 +73,21 @@ public class OrderActivity extends AppCompatActivity {
                 Log.e("API_ERROR", "Failure: " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_chat_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_revert) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -49,7 +49,6 @@
         </activity>
         <activity
             android:name=".activity.PetDetailActivity"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="true">
 <!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
