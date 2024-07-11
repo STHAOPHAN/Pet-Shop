@@ -63,6 +63,10 @@ public class CartFragment extends BaseFragment {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Cart.getInstance().getCartItems().isEmpty()){
+                    Toast.makeText(getContext(), "There is nothing to checkout. Please add items to your cart.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 checkoutOrder();
             }
         });

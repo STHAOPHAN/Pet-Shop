@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -41,7 +42,9 @@ public class QRCodeActivity extends AppCompatActivity {
         qrImageView = findViewById(R.id.qrImageView);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Hiển thị nút quay lại
+        }
         Intent intent = getIntent();
         orderId = intent.getIntExtra("orderId", -1);
         if (orderId != -1) {
@@ -51,6 +54,15 @@ public class QRCodeActivity extends AppCompatActivity {
         }
         startCheckingOrderStatus();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void createQRCode(int orderId) {
