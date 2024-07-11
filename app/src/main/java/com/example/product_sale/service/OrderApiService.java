@@ -23,7 +23,7 @@ public interface OrderApiService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @GET("api/orders")
-    Call<List<Order>> getOrders();
+    Call<List<Order>> getOrders(@Query("customerId") int customerId);
 
     @POST("api/orders")
     Call<Order> createOrder(@Body Order order);
