@@ -1,8 +1,6 @@
 package com.example.product_sale.cart;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.product_sale.R;
 import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.LoginActivity;
@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,8 +85,7 @@ public class CartFragment extends BaseFragment {
             startActivity(intent);
         }
         String emailUser = user.getEmail();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        OrderModel orderModel = new OrderModel(sharedPreferences.getString("Email", emailUser), totalPrice, petIds);
+        OrderModel orderModel = new OrderModel(emailUser, totalPrice, petIds);
         orderApiService.checkoutOrder(orderModel).enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {

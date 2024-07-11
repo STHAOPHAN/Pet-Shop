@@ -59,9 +59,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
                 .into(holder.ivPet);
 
         holder.btnAddToCart.setOnClickListener(v -> {
-            CartItem cartItem = new CartItem(pet, 1);
-            cart.addItem(cartItem);
-            Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+            CartItem cartItem = new CartItem(pet);
+            Cart.AddItemStatus result = cart.addItem(cartItem);
+            if (result == Cart.AddItemStatus.ITEM_ALREADY_EXISTS) {
+                Toast.makeText(context, "Pet is already in the cart", Toast.LENGTH_SHORT).show();
+            } else if (result == Cart.AddItemStatus.ITEM_ADDED_SUCCESSFULLY) {
+                Toast.makeText(context, "Added to the cart", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Set the click listener for item view

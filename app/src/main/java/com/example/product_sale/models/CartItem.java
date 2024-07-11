@@ -5,16 +5,13 @@ import android.os.Parcelable;
 
 public class CartItem implements Parcelable {
     private Pet pet;
-    private int quantity;
 
-    public CartItem(Pet pet, int quantity) {
+    public CartItem(Pet pet) {
         this.pet = pet;
-        this.quantity = quantity;
     }
 
     protected CartItem(Parcel in) {
         pet = in.readParcelable(Pet.class.getClassLoader());
-        quantity = in.readInt();
     }
 
     public static final Creator<CartItem> CREATOR = new Creator<CartItem>() {
@@ -37,18 +34,11 @@ public class CartItem implements Parcelable {
         this.pet = pet;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(pet, flags);
-        dest.writeInt(quantity);
     }
 
     @Override
@@ -56,7 +46,4 @@ public class CartItem implements Parcelable {
         return 0;
     }
 
-    public double getTotalPrice() {
-        return pet.getPrice() * quantity;
-    }
 }
