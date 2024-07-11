@@ -43,6 +43,19 @@
                 android:textSize="16sp"
                 android:text="Pet Price" />
 
+            <TextView
+                android:id="@+id/tv_pet_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Pet Color" />
+
+            <TextView
+                android:id="@+id/tv_pet_breed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Pet Breed" />
         </LinearLayout>
 
     </LinearLayout>
