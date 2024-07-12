@@ -259,7 +259,7 @@
     <string name="lbl_view_all">View all</string>
     <string name="text_colon">:</string>
     <string name="lbl_no_tracking_available">No Tracking Available</string>
-    <string name="hint_enter_old_password">Old password</string>
+    <string name="hint_enter_old_password">Old Password</string>
     <string name="msg_successpwd">Successfully password changed</string>
     <string name="contact_phone">+91 5435436</string>
     <string name="msg_selectcolorsize"><![CDATA[Please select color & size value]]></string>

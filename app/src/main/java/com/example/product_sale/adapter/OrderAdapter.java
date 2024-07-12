@@ -14,6 +14,9 @@ import com.example.product_sale.R;
 import com.example.product_sale.models.Order;
 import com.example.product_sale.activity.OrderPetActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
@@ -35,18 +38,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.tvOrderId.setText("Order ID: " + order.getId());
-        holder.tvCustomerId.setText("Customer ID: " + order.getCustomerId());
+        holder.tvOrderId.setText("Mã hàng: " + order.getId());
+        holder.tvCustomerId.setText("Mã người dùng: " + order.getCustomerId());
 
-        // Split and get date part before 'T'
+        // Format the order date
         String orderDate = order.getOrderDate();
-        if (orderDate != null && orderDate.contains("T")) {
-            orderDate = orderDate.split("T")[0]; // This will keep only the date part
-        }
-        holder.tvOrderDate.setText("Order Date: " + orderDate);
+        orderDate = formatDateString(orderDate);
 
-        holder.tvTotalPrice.setText("Total Price: " + order.getTotalPrice().toString());
-        holder.tvStatus.setText("Status: " + order.getStatus());
+        holder.tvOrderDate.setText("Ngày đặt: " + orderDate);
+
+        holder.tvTotalPrice.setText("Tổng tiền: " + order.getTotalPrice().toString() + " VND");
+        holder.tvStatus.setText("Trạng thái: " + order.getStatus());
 
         // Handle item click
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public int getItemCount() {
         return orderList.size();
+    }
+
+    // Method to format the date string
+    private String formatDateString(String dateString) {
+        SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        try {
+            Date date = fromUser.parse(dateString);
+            return myFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return dateString; // return original date string if parsing fails
+        }
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {

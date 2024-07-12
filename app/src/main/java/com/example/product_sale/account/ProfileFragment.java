@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import com.example.product_sale.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -166,8 +167,15 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void changePassword() {
+        NavOptions navOptions = new NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)    // Animation khi chuyển đến Fragment mới
+                .setExitAnim(R.anim.slide_out_left)     // Animation khi Fragment hiện tại bị loại bỏ
+                .setPopEnterAnim(R.anim.slide_in_left)  // Animation khi quay lại Fragment hiện tại
+                .setPopExitAnim(R.anim.slide_out_right) // Animation khi Fragment hiện tại bị loại bỏ khi quay lại
+                .build();
+
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_main);
-        navController.navigate(R.id.navigation_reset_password);
+        navController.navigate(R.id.navigation_reset_password, null, navOptions);
     }
 
 

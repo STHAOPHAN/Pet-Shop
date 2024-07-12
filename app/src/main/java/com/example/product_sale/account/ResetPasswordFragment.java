@@ -1,24 +1,23 @@
 package com.example.product_sale.account;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import com.example.product_sale.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import com.example.product_sale.activity.BaseFragment;
-import com.example.product_sale.activity.LoginActivity;
 import com.example.product_sale.models.Customer;
 import com.example.product_sale.service.CustomerApiService;
 import com.google.android.material.button.MaterialButton;
@@ -46,7 +45,6 @@ public class ResetPasswordFragment extends BaseFragment {
         btnChangePassword = view.findViewById(R.id.btnChangePassword);
 
         btnChangePassword.setOnClickListener(v -> changePassword());
-
         return view;
 
     }
@@ -112,18 +110,10 @@ public class ResetPasswordFragment extends BaseFragment {
         });
     }
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_account, menu); // Inflate the menu
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_logout) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+        if (item.getItemId() == android.R.id.home) {
+            NavController navController = NavHostFragment.findNavController(this);
+            navController.navigateUp();
             return true;
         }
         return super.onOptionsItemSelected(item);

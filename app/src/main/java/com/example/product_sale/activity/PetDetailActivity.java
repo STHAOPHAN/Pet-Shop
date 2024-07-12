@@ -2,6 +2,9 @@ package com.example.product_sale.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ public class PetDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getSupportActionBar().setTitle("Pet Detail");
         setContentView(R.layout.activity_pet_detail);
 
         ivPetImage = findViewById(R.id.iv_pet_image);
@@ -38,7 +42,7 @@ public class PetDetailActivity extends BaseActivity {
             tvPetName.setText("Tên: " +pet.getName());
             tvPetBreed.setText("Giống loài: " + pet.getBreed());  // Set breed text
             tvPetColor.setText("Màu: " + pet.getColor());
-            tvPetPrice.setText("Price: $" + pet.getPrice());
+            tvPetPrice.setText("Giá tiền: $" + pet.getPrice());
             tvPetAge.setText("Tuổi: " + pet.getAge());  // Set age text
             tvPetGender.setText("Giới tính: " + pet.getGender());  // Set gender text
 
@@ -50,5 +54,21 @@ public class PetDetailActivity extends BaseActivity {
                     .error(R.drawable.ic_delete)        // Ảnh hiển thị khi có lỗi
                     .into(ivPetImage);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_chat_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_revert) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
