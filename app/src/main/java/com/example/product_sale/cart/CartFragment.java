@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.product_sale.R;
 import com.example.product_sale.activity.BaseFragment;
 import com.example.product_sale.activity.LoginActivity;
+import com.example.product_sale.activity.OrderActivity;
+import com.example.product_sale.activity.OrderPetActivity;
 import com.example.product_sale.activity.QRCodeActivity;
 import com.example.product_sale.adapter.CartAdapter;
 import com.example.product_sale.models.Cart;
@@ -97,11 +99,7 @@ public class CartFragment extends BaseFragment {
                 Cart.getInstance().clear();
                 cartAdapter.notifyDataSetChanged();
 
-                // Chuyển đến QRCodeActivity và truyền orderId
-                Order newOrder = new Order();
-                newOrder = response.body();
-                Intent intent = new Intent(getActivity(), QRCodeActivity.class);
-                intent.putExtra("orderId", newOrder.getId());
+                Intent intent = new Intent(getActivity(), OrderActivity.class);
                 startActivity(intent);
             }
 
