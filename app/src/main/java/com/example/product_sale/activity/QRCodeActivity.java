@@ -124,7 +124,7 @@ public class QRCodeActivity extends AppCompatActivity {
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     String status = response.body().get(0).getStatus();
-                    if ("Confirmed".equals(status)) {
+                    if ("Paid".equals(status)) {
                         stopCheckingOrderStatus();
                         showPaymentSuccessDialog();
                     }
@@ -149,7 +149,7 @@ public class QRCodeActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Intent intent = new Intent(QRCodeActivity.this, OrderActivity.class);
+                Intent intent = new Intent(QRCodeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish(); // Close QRCodeActivity
             }
