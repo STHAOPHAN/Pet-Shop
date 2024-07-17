@@ -1,4 +1,3 @@
-
 package com.example.product_sale.adapter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
